@@ -41,7 +41,7 @@ function transformInput(input: any): Exercise {
   });
 
   return {
-    identifier: Number(input.id_question.N),
+    identifier: input.id_question.N,
     statement: clean(question), // Remove HTML tags from question
     alternatives: alternatives
   };
