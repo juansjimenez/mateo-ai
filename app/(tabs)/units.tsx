@@ -1,5 +1,5 @@
 import { ImageSourcePropType, Pressable, Text, StyleSheet, Theme } from 'react-native';
-import { Card, Button, useTheme } from 'react-native-paper'
+import { Card, Button, useTheme } from 'react-native-paper';
 import { ProgressBar } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
@@ -11,13 +11,9 @@ type Props = PropsWithChildren<{
   taskStatement: string;
 }>;
 
-function AssignmentCard( {
-  children,
-  placeholderImageSource,
-  taskStatement,
-}: Props ) {
-  const theme = useTheme()
-  const styles  = makeStyles(theme)
+function AssignmentCard({ children, placeholderImageSource, taskStatement }: Props) {
+  const theme = useTheme();
+  const styles = makeStyles(theme);
   return (
     <Card>
       <ProgressBar />
@@ -34,60 +30,58 @@ function AssignmentCard( {
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
   const [actualQuestion, setActualQuestion] = useState('');
-  const theme = useTheme()
-  const handleChatVisibility= () => {
-    setChatVisibility(!chatVisibility)
-  }
-
-    return (
-        <ParallaxScrollView>
-          <AssignmentCard 
-            placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
-            taskStatement={loremImpsum}
-          />
-      
-       </ParallaxScrollView>
-    );
+  const theme = useTheme();
+  const handleChatVisibility = () => {
+    setChatVisibility(!chatVisibility);
   };
 
-const makeStyles  = (theme: Theme) =>{
- return StyleSheet.create({
-    home:{
-    height: '100%'
+  return (
+    <ParallaxScrollView>
+      <AssignmentCard
+        placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
+        taskStatement={loremImpsum}
+      />
+    </ParallaxScrollView>
+  );
+}
+
+const makeStyles = (theme: Theme) => {
+  return StyleSheet.create({
+    home: {
+      height: '100%',
     },
-      titleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-      },
-      stepContainer: {
-        gap: 8,
-        marginBottom: 8,
-      },
-      reactLogo: {
-        height: 178,
-        width: 290,
-        bottom: 0,
-        left: 0,
-        position: 'absolute',
-      },
-      button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-        backgroundColor: theme.colors.clickable,
-        width: '10%',
-        marginTop:10,
-        color: 'white'
-      },
-     textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-      },
-      exerciseimage: {
-        boxSizing: 'fit'
-      }
-    })
-  };
-
+    titleContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+    },
+    stepContainer: {
+      gap: 8,
+      marginBottom: 8,
+    },
+    reactLogo: {
+      height: 178,
+      width: 290,
+      bottom: 0,
+      left: 0,
+      position: 'absolute',
+    },
+    button: {
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+      backgroundColor: theme.colors.clickable,
+      width: '10%',
+      marginTop: 10,
+      color: 'white',
+    },
+    textStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    exerciseimage: {
+      boxSizing: 'fit',
+    },
+  });
+};
