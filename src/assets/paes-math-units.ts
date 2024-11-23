@@ -1,4 +1,4 @@
-[
+const paesMathUnits = [
   {
     "id": 0,
     "name": "Números",
@@ -243,3 +243,5 @@
     ]
   }
 ]
+
+export { paesMathUnits };

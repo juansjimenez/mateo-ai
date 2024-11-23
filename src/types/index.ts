@@ -19,7 +19,7 @@ interface Alternative {
 }
 
 interface Exercise {
-  identifier: string;
+  identifier: number;
   statement: string;
   alternatives: Alternative[];
   subjectId?: string;
