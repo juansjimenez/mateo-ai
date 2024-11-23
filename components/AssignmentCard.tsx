@@ -1,7 +1,7 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
 import { Card, useTheme } from 'react-native-paper';
-import { ProgressBar, MyButton } from '@/components';
-import React, { PropsWithChildren, useState } from 'react';
+import { ProgressBar } from '@/components';
+import React, { PropsWithChildren } from 'react';
 
 type Props = PropsWithChildren<{
   placeholderImageSource?: ImageSourcePropType;
