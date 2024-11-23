@@ -31,7 +31,7 @@ const makeStyles = (theme: Theme) => {
       borderRadius: 20,
       padding: 10,
       elevation: 2,
-      width: '10%',
+      width: '50%',
       marginTop: 10,
       color: 'white',
       flexDirection: 'row',

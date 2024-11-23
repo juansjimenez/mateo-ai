@@ -9,11 +9,10 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     height: 22,
-    width: 100,
+    width: '100%',
     borderRadius: 10,
     borderColor: '#0AFFF0',
     borderWidth: 2,
-    marginTop: 10,
     marginBottom: 5,
   },
 });

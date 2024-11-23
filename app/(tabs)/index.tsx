@@ -8,11 +8,8 @@ import {
   View,
   Image,
 } from 'react-native';
-import { Card } from 'react-native-paper';
-import { ProgressBar, AlternativeSelection } from '@/components';
-import React, { PropsWithChildren, useState } from 'react';
-import { loremImpsum } from '@/assets/loremipsum';
-import ChatModal from '../../components/ChatModal';
+import { ProgressBar } from '@/components';
+import React from 'react';
 import { ThemedText } from '@/components/ThemedText';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 

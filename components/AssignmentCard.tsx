@@ -5,23 +5,24 @@ import React, { PropsWithChildren, useState } from 'react';
 
 
 type Props = PropsWithChildren<{
-  placeholderImageSource: ImageSourcePropType | undefined;
-  taskStatement: string;
+  placeholderImageSource?: ImageSourcePropType;
+  taskStatement?: string;
+  cardTitle? : string
   hasProgress: boolean
 
 }>;
 
-export default function AssignmentCard({ children, placeholderImageSource, taskStatement, hasProgress }: Props) {
+export default function AssignmentCard({ children, placeholderImageSource, taskStatement, hasProgress, cardTitle }: Props) {
   const theme = useTheme();
   const styles = makeStyles(theme);
   return (
     <Card>
         {hasProgress&&<ProgressBar />}
-      <Card.Cover source={placeholderImageSource} />
-      <Card.Title title="Card Title" />
-      <Card.Content>
+      {placeholderImageSource && <Card.Cover source={placeholderImageSource} /> }
+      <Card.Title title={cardTitle} />
+      {taskStatement&& <Card.Content>
         <Text> {taskStatement} </Text>
-      </Card.Content>
+      </Card.Content>}
       <View style={styles.buttonContainer}>
         {children}
       </View>

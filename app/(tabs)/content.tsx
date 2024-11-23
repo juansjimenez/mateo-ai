@@ -1,34 +1,37 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
-import { Card, useTheme } from 'react-native-paper';
-import { ProgressBar, MyButton, AssignmentCard } from '@/components';
-import React, { PropsWithChildren, useState } from 'react';
-import { loremImpsum } from '@/assets/loremipsum';
+import { useTheme } from 'react-native-paper';
+import { AssignmentCard } from '@/components';
+import React, { useState } from 'react';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 
-export default function Assignments() {
-  const [chatVisibility, setChatVisibility] = useState(false);
-  const [ assignments, setAssignments] = useState([])
-  const theme = useTheme();
-  const styles = makeStyles(theme)
-  const handleChatVisibility = () => {
-    setChatVisibility(!chatVisibility);
-  };
-
+function Content(styles: StyleSheet, content:string) {
+ 
   return (
     <ParallaxScrollView>
       <AssignmentCard
-        placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
-        taskStatement={loremImpsum}
+        cardTitle={content}
         hasProgress ={true}>
             <View style={styles.buttonContainer}>
-          <MyButton> Aprender </MyButton>
         </View>
         </AssignmentCard>
     </ParallaxScrollView>
   );
 }
 
+export default function MakeContents() {
+    const [ contents, setContent] = useState(['This is the content'])
+    const theme = useTheme();
+    const styles = makeStyles(theme)
+    let contentsView = []
+    for(let contentIdx in contents){
+        let content = contents[contentIdx]
+        contentsView.push(Content(styles, content))
+
+        }
+    return contentsView
+
+}
 const makeStyles = (theme: Theme) => {
   return StyleSheet.create({
     titleContainer: {
