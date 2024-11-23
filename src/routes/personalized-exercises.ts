@@ -99,12 +99,10 @@ personalizedExerciseRouter.post('/submit-answer', async (req, res) => {
 
   const submittedAlternative = personalizedExercise.alternatives[alternativeIndex];
 
-  console.log({
-    submittedAlternative,
-  })
-
   const newData = {
     submittedAnswer: submittedAlternative, 
+    isCorrect: submittedAlternative.isCorrect,
+    answeredAt: new Date(),
   }
 
   const upsertedPersonalizedExercise: PersonalizedExercise = await upsert(db, 'personalized-exercises', newData, { identifier });
