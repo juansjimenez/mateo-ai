@@ -19,6 +19,11 @@ async function getOrCreate(db: any, collectionName: string, filter: object, newD
   return document;
 }
 
+async function createDocument(db: any, collectionName: string, newData: object) {
+  const document = await db!.collection(collectionName).insertOne(newData);
+  return document;
+}
+
 async function remove(db: any, collectionName: string, filter: object) {
   const document = await db!.collection(collectionName).deleteOne(filter);
   if (document.deletedCount === 0) {
@@ -41,4 +46,4 @@ async function getMongoConnection(dbName: string) {
   return client.connection.db;
 }
 
-export { get, getAll, getOrCreate, remove, upsert, getMongoConnection };
+export { get, getAll, getOrCreate, remove, upsert, getMongoConnection, createDocument };

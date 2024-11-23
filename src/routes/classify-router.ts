@@ -1,7 +1,5 @@
 import { Router } from "express";
 import { getMongoConnection, upsert } from "../integrations/mongo";
-import { askGemini } from "../integrations/gemini";
-import { dynamoToMongoPrompt } from "../prompts";
 import { Exercise } from "../types";
 import * as he from 'he';
 
@@ -57,7 +55,7 @@ classifyRouter.get('/new', async (req, res) => {
   const response = transformInput(req.body);
 
   const db = await getMongoConnection('exercises');
-  const result = await upsert(db, 'exercises', response);
+  const result = await upsert(db, 'exercises', response, { identifier: response.identifier });
 
   const success = result.upsertedCount === 1;
   
