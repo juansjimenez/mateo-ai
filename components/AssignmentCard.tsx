@@ -1,6 +1,6 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
 import { Card, useTheme } from 'react-native-paper';
-import { ProgressBar } from '@/components';
+import { ProgressBar, size } from '@/components';
 import React, { PropsWithChildren } from 'react';
 
 type Props = PropsWithChildren<{
@@ -8,6 +8,7 @@ type Props = PropsWithChildren<{
   taskStatement?: string;
   cardTitle?: string;
   hasProgress: boolean;
+  progressSize?: size;
 }>;
 
 export default function AssignmentCard({
@@ -16,12 +17,13 @@ export default function AssignmentCard({
   taskStatement,
   hasProgress,
   cardTitle,
+  progressSize,
 }: Props) {
   const theme = useTheme();
   const styles = makeStyles(theme);
   return (
     <Card>
-      {hasProgress && <ProgressBar />}
+      {hasProgress && progressSize && <ProgressBar barsize={progressSize} />}
       {placeholderImageSource && <Card.Cover source={placeholderImageSource} />}
       <Card.Title title={cardTitle} />
       {taskStatement && (

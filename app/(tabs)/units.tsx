@@ -1,5 +1,5 @@
 import { StyleSheet, Theme } from 'react-native';
-import { AssignmentCard } from '@/components';
+import { AssignmentCard, size } from '@/components';
 import React, { useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -8,6 +8,7 @@ function Assignment(assignmentTitle: string) {
     <AssignmentCard
       placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
       hasProgress={true}
+      progressSize={size.big}
       cardTitle={assignmentTitle}
     ></AssignmentCard>
   );
