@@ -26,7 +26,7 @@ app.listen(port, () => {
 });
 
 app.get('/health', (req, res) => {
-  res.status(200).send('OK');
+  res.status(200).send('OK PATOAPATOPOAPOT');
 });
 
 io.on('connection', (socket) => {
