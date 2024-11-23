@@ -25,6 +25,7 @@ interface Exercise {
   subjectId?: string;
   unitId?: string;
   difficulty?: DifficultyLevel;
+  explanation?: string;
   tags?: string[];
   imageUrl?: string;
 }
