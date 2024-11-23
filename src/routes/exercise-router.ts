@@ -9,7 +9,7 @@ import { solveExercisePrompt } from "../prompts";
 const exerciseRouter = Router();
 
 exerciseRouter.get('/all', async (req, res) => {
-  const db = await getMongoConnection('exercises');
+  const db = await getMongoConnection();
   const exercises: Exercise[] = await getAll(db, 'exercises');
   
   res.status(200).json({ message: exercises});
@@ -19,7 +19,7 @@ exerciseRouter.get('/all', async (req, res) => {
 exerciseRouter.post('/solve', async (req, res) => {
   const { identifier } = req.body;
   console.log('Solving exercise:', identifier);
-  const db = await getMongoConnection('exercises');
+  const db = await getMongoConnection();
   console.log('AA')
   const exercise = await get(db, 'exercises', { identifier });
 
@@ -58,7 +58,7 @@ exerciseRouter.post('/solve', async (req, res) => {
 exerciseRouter.get('/:identifier', async (req, res) => {
   const { identifier } = req.params;
 
-  const db = await getMongoConnection('exercises');
+  const db = await getMongoConnection();
   const exercise: Exercise = await get(db, 'exercises', { identifier});
   
   res.status(200).json({ message: exercise});
@@ -71,7 +71,7 @@ exerciseRouter.post('/:identifier?', async (req, res) => {
   } = req;
   const identifier = params.identifier || uuid();
 
-  const db = await getMongoConnection('exercises');
+  const db = await getMongoConnection();
   const uspertedExercise: Exercise = await upsert(db, 'exercises', body, { identifier });
 
   res.status(201).json({ message: uspertedExercise });

@@ -42,10 +42,10 @@ async function insertMany(db: any, collectionName: string, documents: object[]) 
   return result;
 }
 
-async function getMongoConnection(dbName: string) {
+async function getMongoConnection() {
   console.log(`Connecting to mongo ... `);
   const connectionString = process.env.ATLAS_URI || "";
-  const client = await mongoose.connect(`${connectionString.replace(/\/$/, '')}/${dbName}`);
+  const client = await mongoose.connect(`${connectionString.replace(/\/$/, '')}/exercises`);
   console.log(`Connected.`);
   return client.connection.db;
 }

@@ -59,7 +59,7 @@ function decodeHtmlEntities(inputText: string): string {
 classifyRouter.post("/new", async (req, res) => {
   const response = transformInput(req.body);
 
-  const db = await getMongoConnection("exercises");
+  const db = await getMongoConnection();
   const result = await upsert(db, "exercises", response, {
     identifier: response.identifier,
   });
@@ -75,7 +75,7 @@ classifyRouter.post("/assign-subject-all", async (req, res) => {
     res.sendStatus(408);
   });
 
-  const db = await getMongoConnection("exercises");
+  const db = await getMongoConnection();
   const exercises = await getAll(db, "exercises", {});
 
   console.log("Exercises found:", exercises.length);
