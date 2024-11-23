@@ -28,15 +28,16 @@ async function remove(db: any, collectionName: string, filter: object) {
 }
 
 async function upsert(db: any, collectionName: string, newData: object, filter: object = {}) {
-  const document = await db!.collection(collectionName).updateOne(filter, newData, { upsert: true });
+  const document = await db!.collection(collectionName).updateOne(filter, { $set: newData }, { upsert: true });
   return document;
 }
 
 
 async function getMongoConnection(dbName: string) {
-  console.log(`Connecting to mongo`);
+  console.log(`Connecting to mongo ... `);
   const connectionString = process.env.ATLAS_URI || "";
-  const client = await mongoose.connect(`${connectionString}/${dbName}`);
+  const client = await mongoose.connect(`${connectionString.replace(/\/$/, '')}/${dbName}`);
+  console.log(`Connected.`);
   return client.connection.db;
 }
 
