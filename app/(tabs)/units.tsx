@@ -1,10 +1,9 @@
-import { ImageSourcePropType, Pressable, Text, StyleSheet, Theme } from 'react-native';
+import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
 import { Card, Button, useTheme } from 'react-native-paper';
 import { ProgressBar } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
@@ -22,14 +21,16 @@ function AssignmentCard({ children, placeholderImageSource, taskStatement }: Pro
       <Card.Content>
         <Text> {taskStatement} </Text>
       </Card.Content>
-      <Button style={styles.button}> Aprender </Button>
+      <View style={styles.buttonContainer}>
+        <Button style={styles.button}> Aprender </Button>
+
+      </View>
     </Card>
   );
 }
 
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
-  const [actualQuestion, setActualQuestion] = useState('');
   const theme = useTheme();
   const handleChatVisibility = () => {
     setChatVisibility(!chatVisibility);
@@ -66,14 +67,17 @@ const makeStyles = (theme: Theme) => {
       left: 0,
       position: 'absolute',
     },
+    buttonContainer: {
+      alignContent: 'center'
+    },
     button: {
       borderRadius: 20,
       padding: 10,
       elevation: 2,
       backgroundColor: theme.colors.clickable,
-      width: '10%',
-      marginTop: 10,
-      color: 'white',
+      width: '50%',
+      margin: 20,
+      fontColor: 'white',
     },
     textStyle: {
       color: 'white',
