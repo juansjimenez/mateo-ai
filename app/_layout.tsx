@@ -37,12 +37,12 @@ export default function RootLayout() {
   }
 
   return (
-      <PaperProvider theme={theme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="landing" options={{ headerShown: false }} />
-        </Stack>
-        <StatusBar style="auto" />
-      </PaperProvider>
+    <PaperProvider theme={theme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="landing" options={{ headerShown: false }} />
+      </Stack>
+      <StatusBar style="auto" />
+    </PaperProvider>
   );
 }
