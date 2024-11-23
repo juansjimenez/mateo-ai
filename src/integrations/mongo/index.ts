@@ -27,7 +27,7 @@ async function remove(db: any, collectionName: string, filter: object) {
   return document.deletedCount;
 }
 
-async function upsert(db: any, collectionName: string, filter: object, newData: object) {
+async function upsert(db: any, collectionName: string, newData: object, filter: object = {}) {
   const document = await db!.collection(collectionName).updateOne(filter, newData, { upsert: true });
   return document;
 }

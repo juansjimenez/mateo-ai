@@ -1,0 +1,5 @@
+const dynamoToMongoPrompt = '';
+
+export {
+  dynamoToMongoPrompt
+}
