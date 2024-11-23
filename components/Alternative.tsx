@@ -8,7 +8,12 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       marginVertical: 5,
       paddingHorizontal: 10,
+      alignContent: 'center'
     },
+    textContainer: {
+        padding: 10
+    }
+
 })
 const AlternativeSelection = () => {
     const [checked, setChecked] = React.useState('first');
@@ -22,7 +27,9 @@ const AlternativeSelection = () => {
                 status={ checked === alternative.id ? 'checked' : 'unchecked' }
                 onPress={() => setChecked(alternative.id)}
                 />
-                <Text>
+                <Text
+                    style= {styles.textContainer}
+                >
                     {alternative.text}
                 </Text>
             </View>

@@ -1,4 +1,3 @@
-//import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack, useNavigation, Navigator} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -47,8 +46,7 @@ export default function RootLayout() {
       <PaperProvider theme={theme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-          <Stack.Screen  name="landing" />
+          <Stack.Screen name="landing" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </PaperProvider>
