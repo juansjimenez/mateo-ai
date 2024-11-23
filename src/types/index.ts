@@ -29,10 +29,38 @@ interface Exercise {
   imageUrl?: string;
 }
 
+interface PersonalizedExercise extends Exercise {
+  profileIdentifier: string;
+  originalExerciseIdentifier: string;
+  preferences: Preference[];
+}
+
+interface PersonalizeExercisesBody {
+  profileIdentifier: string;
+  subjectIdentifier: string;
+  unitIdentifier: string;
+}
+
+interface Preference {
+  category: string;
+  value: string;
+}
+
+
+interface Profile {
+  identifier: string;
+  name: string;
+  preferences: Preference[];
+}
+
 export type {
   Subject,
   Unit,
   DifficultyLevel,
   Exercise,
   Alternative,
+  PersonalizedExercise,
+  PersonalizeExercisesBody,
+  Preference,
+  Profile,
 };  

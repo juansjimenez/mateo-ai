@@ -37,6 +37,10 @@ async function upsert(db: any, collectionName: string, newData: object, filter: 
   return document;
 }
 
+async function insertMany(db: any, collectionName: string, documents: object[]) {
+  const result = await db!.collection(collectionName).insertMany(documents);
+  return result;
+}
 
 async function getMongoConnection(dbName: string) {
   console.log(`Connecting to mongo ... `);
@@ -46,4 +50,4 @@ async function getMongoConnection(dbName: string) {
   return client.connection.db;
 }
 
-export { get, getAll, getOrCreate, remove, upsert, getMongoConnection, createDocument };
+export { get, getAll, getOrCreate, remove, upsert, getMongoConnection, createDocument, insertMany};
