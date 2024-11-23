@@ -23,6 +23,8 @@ interface PersonalizedExercise extends Exercise {
   profileIdentifier: string;
   originalExerciseIdentifier: string;
   preferences: Preference[];
+  submittedAnswer?: Alternative;
+  solutionExplanation?: string;
 }
 
 interface PersonalizeExercisesBody {

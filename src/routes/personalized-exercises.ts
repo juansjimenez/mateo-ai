@@ -69,9 +69,27 @@ personalizedExerciseRouter.post('/personalize', async (req, res) => {
 });
 
 
-// personalizedExerciseRouter.post('/submit-answer', async (req, res) => {
-  
-// });
+personalizedExerciseRouter.post('/submit-answer', async (req, res) => {
+  const { identifier,  alternativeIndex} = req.body;
+
+  const db = await getMongoConnection();
+  const personalizedExercise: PersonalizedExercise = await get(db, 'personalized-exercises', { identifier });
+
+  const submittedAlternative = personalizedExercise.alternatives[alternativeIndex];
+
+  console.log({
+    submittedAlternative,
+  })
+
+  const newData = {
+    submittedAnswer: submittedAlternative, 
+  }
+
+  const upsertedPersonalizedExercise: PersonalizedExercise = await upsert(db, 'personalized-exercises', newData, { identifier });
+
+  await disconnect();
+  res.status(201).json({ message: upsertedPersonalizedExercise });
+});
 
 
 

@@ -35,11 +35,10 @@ async function remove(db: any, collectionName: string, filter: object) {
 async function upsert(db: any, collectionName: string, newData: object, filter: object = {}) {
   return await db!.collection(collectionName).findOneAndUpdate(
     filter,
-    { $setOnInsert: newData },
+    { $set: newData },
     { upsert: true, returnDocument: "after" }
   );
 }
-
 async function insertMany(db: any, collectionName: string, documents: object[]) {
   const result = await db!.collection(collectionName).insertMany(documents);
   return result;
