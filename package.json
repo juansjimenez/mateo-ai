@@ -10,8 +10,8 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "prettify": "prettier --write ./components ./app",
-    "prettier-check": "prettier --check ./components ./app"
+    "prettify": "prettier --write ./components ./app ./server",
+    "prettier-check": "prettier --check ./components ./app ./server"
   },
   "jest": {
     "preset": "jest-expo"
@@ -37,6 +37,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.3",
+    "react-native-config": "^1.5.3",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-network-info": "^5.2.1",
     "react-native-paper": "^5.12.5",
