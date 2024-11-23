@@ -1,10 +1,5 @@
 import { View, Image,StyleSheet, Text, ImageSourcePropType } from 'react-native';
 import { ProgressBar } from '../../components'
-import { Avatar, List, MD2Colors, MD3Colors } from 'react-native-paper';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 
 const styles = StyleSheet.create({
   container: {

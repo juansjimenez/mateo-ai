@@ -2,6 +2,7 @@ import { ImageSourcePropType, Text, View } from 'react-native';
 import { Card } from 'react-native-paper'
 import { ProgressBar, AlternativeSelection } from '@/components';
 import { PropsWithChildren } from 'react';
+import {loremImpsum} from '@/assets/loremipsum'
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
@@ -31,7 +32,7 @@ export default function Assignment() {
         <View>
           <AssignmentCard 
             placeholderImageSource={require('../../assets/images/modules/modulo1.png')}
-            taskStatement="This is a task statement"
+            taskStatement={loremImpsum}
           />
           <AlternativeSelection/>
        </View>
