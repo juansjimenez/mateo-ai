@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { get, getAll, getMongoConnection, upsert } from "../integrations/mongo";
+import { getMongoConnection, upsert } from "../integrations/mongo";
 import { askGemini } from "../integrations/gemini";
 import { dynamoToMongoPrompt } from "../prompts";
 

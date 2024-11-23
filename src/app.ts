@@ -3,10 +3,17 @@ dotenv.config();
 
 import express from 'express';
 import { classifyRouter, profileRouter } from './routes';
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
+
+import { Server } from "socket.io";
+import { createServer } from "http";
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+const server = createServer(app);
+const io = new Server(server);
+
 
 app.use(bodyParser.json());
 app.use('/profiles', profileRouter);
@@ -19,4 +26,13 @@ app.listen(port, () => {
 
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
+});
+
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  socket.on('message', (msg) => {
+    console.log('message: ' + msg);
+    io.emit('ekko message', msg);
+  });
 });
