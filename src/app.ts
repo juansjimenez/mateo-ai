@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from 'express';
-import { classifyRouter, profileRouter } from './routes';
+import { classifyRouter, exerciseRouter, profileRouter } from './routes';
 import bodyParser from 'body-parser';
 
 import { Server } from "socket.io";
@@ -18,6 +18,7 @@ const io = new Server(server);
 app.use(bodyParser.json());
 app.use('/profiles', profileRouter);
 app.use('/classify', classifyRouter);
+app.use('/exercises', exerciseRouter);
 
 
 app.listen(port, () => {
