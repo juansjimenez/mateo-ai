@@ -2,6 +2,8 @@ import { Router } from "express";
 import { uuid } from 'uuidv4';
 import { get, getAll, upsert, getMongoConnection } from "../integrations/mongo";
 import { Exercise } from '../types';
+import { askChatGPT } from "../integrations/chatgpt";
+import { solveExercisePrompt } from "../prompts";
 
 
 const exerciseRouter = Router();
@@ -11,6 +13,46 @@ exerciseRouter.get('/all', async (req, res) => {
   const exercises: Exercise[] = await getAll(db, 'exercises');
   
   res.status(200).json({ message: exercises});
+});
+
+
+exerciseRouter.post('/solve', async (req, res) => {
+  const { identifier } = req.body;
+  console.log('Solving exercise:', identifier);
+  const db = await getMongoConnection('exercises');
+  console.log('AA')
+  const exercise = await get(db, 'exercises', { identifier });
+
+  console.log('Exercise found:', exercise);
+
+  if (!exercise) {
+    res.status(404).json({ message: 'Exercise not found' });
+    return;
+  }
+
+  if (exercise.explanation) {
+    res.status(400).json({ message: 'Exercise already solved', exercise });
+    return;
+  }
+
+  console.log('Solving exercise ...');
+
+  const solverPrompt = solveExercisePrompt(exercise);
+  const explanation = await askChatGPT(solverPrompt);
+
+  console.log('Explanation:', explanation);
+
+  const newExercise = {
+    ...exercise,
+    explanation,
+  };
+
+  const result = await upsert(db, 'exercises', newExercise, { identifier });
+  const final = await get(db, 'exercises', { identifier });
+
+  console.log('Exercise solved:', final);
+
+  res.status(200).json({ message: 'ok', result, exercise: final });
 });
 
 exerciseRouter.get('/:identifier', async (req, res) => {

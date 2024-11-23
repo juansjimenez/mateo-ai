@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { uuid } from 'uuidv4';
 import { get, getAll, upsert, getMongoConnection } from "../integrations/mongo";
-import { Profile } from '../types';
+import { Profile } from "../types";
 
 const profileRouter = Router();
 
@@ -29,7 +29,7 @@ profileRouter.post('/:identifier?', async (req, res) => {
   const identifier = params.identifier || uuid();
 
   const db = await getMongoConnection('profiles');
-  const upsertedProfile: Profile = await upsert(db, 'profiles', body, { identifier });
+  const upsertedProfile = await upsert(db, 'profiles', body as Profile, { identifier });
 
   res.status(201).json({ message: upsertedProfile });
 });

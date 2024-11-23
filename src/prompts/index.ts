@@ -25,8 +25,14 @@ const personalizePrompt = ({
   return prompt;
 };
 
+const solveExercisePrompt = (exercise: Exercise): string => {
+  const prompt = `Explícame en pocas palabras, como si fuera un estudiante de secundaria, como resolver este ejercicio paso a paso, y menciona los principios o propiedades usados para llegar a la alternativa correcta\n\n${JSON.stringify(exercise, null, 2)}`;
+  return prompt;
+}
+
 export {
   classifyPrompt,
   assignDifficultyPrompt,
   personalizePrompt,
+  solveExercisePrompt,
 }
