@@ -1,24 +1,18 @@
 import { useFonts } from 'expo-font';
-import { Stack, useNavigation, Navigator} from 'expo-router';
+import { Stack, useNavigation, Navigator } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
-
-import {
-  MD3DarkTheme,
-  MD3LightTheme,
-  PaperProvider,
-} from 'react-native-paper';
+import { MD3DarkTheme, MD3LightTheme, PaperProvider } from 'react-native-paper';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const navigation = useNavigation()
-
+  const navigation = useNavigation();
 
   const theme = {
     ...MD3LightTheme,

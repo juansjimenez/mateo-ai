@@ -52,16 +52,13 @@ function LandingDashboard() {
 export default function HomeScreen() {
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
->
+    <ParallaxScrollView headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Asignaturas</ThemedText>
@@ -74,9 +71,9 @@ export default function HomeScreen() {
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
           When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
+          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a
+          fresh <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will
+          move the current <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
@@ -85,9 +82,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-home:{
-height: '100%'
-},
+  home: {
+    height: '100%',
+  },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -110,10 +107,10 @@ height: '100%'
     elevation: 2,
     backgroundColor: '#0078fe',
     width: '10%',
-    marginLeft:'auto',
-    marginTop:'auto'
+    marginLeft: 'auto',
+    marginTop: 'auto',
   },
- textStyle: {
+  textStyle: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

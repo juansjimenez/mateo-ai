@@ -18,18 +18,18 @@ const styles = StyleSheet.create({
   },
 });
 
-function ProgressBar(){
-  return(
-      <View className="flex flex-row pb-10">
-        <LinearGradient
-          className="rounded-lg"
-          colors={['#38FA18', 'transparent']}
-          style={styles.progress}
-          start={[0, 1]}
-          end={[1, 0]}
-        />
-      </View>
-  )
+function ProgressBar() {
+  return (
+    <View className="flex flex-row pb-10">
+      <LinearGradient
+        className="rounded-lg"
+        colors={['#38FA18', 'transparent']}
+        style={styles.progress}
+        start={[0, 1]}
+        end={[1, 0]}
+      />
+    </View>
+  );
 }
 
 export default ProgressBar;

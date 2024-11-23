@@ -2,30 +2,22 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 export interface MessageInput {
-  text:string
-  origin:string
+  text: string;
+  origin: string;
 }
 
 interface ChatMessageProps {
-  message: MessageInput
+  message: MessageInput;
 }
 
-const ChatMessage = ({message}:ChatMessageProps) => {
+const ChatMessage = ({ message }: ChatMessageProps) => {
   const isUser = message.origin === 'user';
 
   return (
     <View
-      style={[
-        styles.messageContainer,
-        isUser ? styles.alignRight : styles.alignLeft,
-      ]}
+      style={[styles.messageContainer, isUser ? styles.alignRight : styles.alignLeft]}
     >
-      <View
-        style={[
-          styles.messageBubble,
-          isUser ? styles.userBubble : styles.botBubble,
-        ]}
-      >
+      <View style={[styles.messageBubble, isUser ? styles.userBubble : styles.botBubble]}>
         <Text style={styles.messageText}>{message.text}</Text>
       </View>
     </View>
