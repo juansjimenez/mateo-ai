@@ -18,13 +18,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const navigation = useNavigation(
-    
-  )
-  useEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, [navigation]);
-
+  const navigation = useNavigation()
 
 
   const theme = {
@@ -43,7 +37,7 @@ export default function RootLayout() {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, navigation]);
 
   if (!loaded) {
     return null;
