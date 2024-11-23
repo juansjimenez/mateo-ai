@@ -1,10 +1,9 @@
-import { ImageSourcePropType, Pressable, StyleSheet } from 'react-native';
+import { ImageSourcePropType, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { AlternativeSelection, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ChatModal from '../../components/ChatModal';
 import { ThemedText } from '@/components/ThemedText';
-import { ScrollView } from 'react-native-gesture-handler';
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;

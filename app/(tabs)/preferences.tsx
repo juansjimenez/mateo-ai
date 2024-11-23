@@ -1,9 +1,8 @@
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { TextInput } from 'react-native-paper';
 import { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 import Server from '@/server/server';
 
 interface Preference {

@@ -1,7 +1,6 @@
-import { StyleSheet, Theme } from 'react-native';
+import { StyleSheet, Theme, ScrollView } from 'react-native';
 import { AssignmentCard, size } from '@/components';
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 
 function Assignment(assignmentTitle: string) {
   return (
