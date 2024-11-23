@@ -1,6 +1,5 @@
 import { View, Image,StyleSheet, Text, ImageSourcePropType } from 'react-native';
 import { ProgressBar } from '../../components'
-import { Avatar, List, MD2Colors, MD3Colors } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +23,17 @@ const styles = StyleSheet.create({
     height: 50,
     paddingLeft: 20,
     paddingTop: 10,
-  }
+  },
+  headerImage: {
+    color: '#808080',
+    bottom: -90,
+    left: -35,
+    position: 'absolute',
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    gap: 8,
+  },
 });
 
 function moduleCard(source: ImageSourcePropType | undefined){
@@ -48,7 +57,6 @@ function moduleCard(source: ImageSourcePropType | undefined){
 export default function LandingDashboard() {
   return (
     <View>
-    
       <View 
         style={styles.contentRow}>
           <Text
