@@ -1,4 +1,4 @@
-import type { Profile } from './profile';
+import type { Preference, Profile } from './profile';
 import type { Unit, Subject } from './subject';
 
 interface Alternative {
@@ -29,11 +29,6 @@ interface PersonalizeExercisesBody {
   profileIdentifier: string;
   subjectIdentifier: string;
   unitIdentifier: string;
-}
-
-interface Preference {
-  category: string;
-  value: string;
 }
 
 export type {

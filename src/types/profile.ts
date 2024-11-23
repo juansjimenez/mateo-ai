@@ -1,5 +1,7 @@
-import { Preference } from '.';
-
+interface Preference {
+  category: string;
+  value: string;
+}
 interface Profile {
   identifier: string;
   name: string;
@@ -7,4 +9,4 @@ interface Profile {
   preferences: Preference[];
 }
 
-export type { Profile }
+export type { Profile, Preference }
