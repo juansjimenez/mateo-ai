@@ -1,12 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-interface ChatMessageProps {
-  message: { text:string, origin:string };
-  id:number;
+export interface MessageInput {
+  text:string
+  origin:string
 }
 
-const ChatMessage = ({ message, id } : ChatMessageProps) => {
+interface ChatMessageProps {
+  message: MessageInput
+}
+
+const ChatMessage = ({message}:ChatMessageProps) => {
   const isUser = message.origin === 'user';
 
   return (
@@ -15,7 +19,6 @@ const ChatMessage = ({ message, id } : ChatMessageProps) => {
         styles.messageContainer,
         isUser ? styles.alignRight : styles.alignLeft,
       ]}
-    key={id}
     >
       <View
         style={[
