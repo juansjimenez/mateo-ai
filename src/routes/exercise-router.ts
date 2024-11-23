@@ -9,7 +9,7 @@ exerciseRouter.get('/all', async (req, res) => {
   const db = await getMongoConnection('exercises');
   const exercises = await getAll(db, 'exercises');
   
-  res.status(201).json({ message: exercises});
+  res.status(200).json({ message: exercises});
 });
 
 exerciseRouter.get('/:identifier', async (req, res) => {
@@ -18,7 +18,7 @@ exerciseRouter.get('/:identifier', async (req, res) => {
   const db = await getMongoConnection('exercises');
   const exercises = await get(db, 'exercises', { identifier});
   
-  res.status(201).json({ message: exercises});
+  res.status(200).json({ message: exercises});
 });
 
 exerciseRouter.post('/:identifier?', async (req, res) => {

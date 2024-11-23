@@ -8,7 +8,7 @@ profileRouter.get('/all', async (req, res) => {
   const db = await getMongoConnection('profiles');
   const profiles = await getAll(db, 'profiles');
   
-  res.status(201).json({ message: profiles});
+  res.status(200).json({ message: profiles});
 });
 
 profileRouter.get('/:identifier', async (req, res) => {
@@ -17,7 +17,7 @@ profileRouter.get('/:identifier', async (req, res) => {
   const db = await getMongoConnection('profiles');
   const profiles = await get(db, 'profiles', { identifier});
   
-  res.status(201).json({ message: profiles});
+  res.status(200).json({ message: profiles});
 });
 
 profileRouter.post('/:identifier?', async (req, res) => {
