@@ -42,9 +42,7 @@ export default function Assignment() {
   }
 
     return (
-        <ParallaxScrollView headerImage={},
-        
-        >
+        <ParallaxScrollView>
           <AssignmentCard 
             placeholderImageSource={require('../../assets/images/modules/modulo1.png')}
             taskStatement={loremImpsum}
