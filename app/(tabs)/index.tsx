@@ -3,16 +3,8 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { useState } from 'react';
-import ChatModal from '../../components/ChatModal';
 
 export default function HomeScreen() {
-  const [chatVisibility, setChatVisibility] = useState(false);
-  const [actualQuestion, setActualQuestion] = useState('');
-
-  const handleChatVisibility= () => {
-    setChatVisibility(!chatVisibility)
-  }
 
   return (
     <ParallaxScrollView
@@ -53,12 +45,6 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
-      <Pressable
-          style={[styles.button]}
-          onPress={handleChatVisibility}>
-          <ThemedText style={styles.textStyle}>Chat</ThemedText>
-        </Pressable>
-    <ChatModal chatVisibility={chatVisibility} setChatVisibility={setChatVisibility} actualQuestion={actualQuestion}/>
     </ParallaxScrollView>
   );
 }
