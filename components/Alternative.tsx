@@ -1,15 +1,22 @@
-import { View, Text} from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 import { RadioButton } from 'react-native-paper';
-import * as React from 'react';
-const mockAlternatives = require('../assets/mockAlternatives.json')
+import React from 'react';
+const mockAlternatives = require('../app/datatypes/mocks/mockAlternatives.json')
 
+const styles = StyleSheet.create({
+    alternativeContainer: {
+      flexDirection: 'row',
+      marginVertical: 5,
+      paddingHorizontal: 10,
+    },
+})
 const AlternativeSelection = () => {
     const [checked, setChecked] = React.useState('first');
     let alternatives = []
     for(let alternativeIdx in mockAlternatives){
         let alternative = mockAlternatives[alternativeIdx]
         alternatives.push(
-            <View>
+            <View style={styles.alternativeContainer}>
                 <RadioButton
                 value={alternative.id}
                 status={ checked === alternative.id ? 'checked' : 'unchecked' }

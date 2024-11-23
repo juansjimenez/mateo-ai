@@ -1,6 +1,6 @@
 import { ImageSourcePropType, Text, View } from 'react-native';
 import { Card } from 'react-native-paper'
-import { ProgressBar } from '@/components';
+import { ProgressBar, AlternativeSelection } from '@/components';
 import { PropsWithChildren } from 'react';
 
 type Props = PropsWithChildren<{
@@ -33,6 +33,7 @@ export default function Assignment() {
             placeholderImageSource={require('../../assets/images/modules/modulo1.png')}
             taskStatement="This is a task statement"
           />
+          <AlternativeSelection/>
        </View>
     );
   };
