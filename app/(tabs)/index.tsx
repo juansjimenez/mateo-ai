@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Platform, Pressable} from 'react-native';
+import { StyleSheet, Platform, Pressable} from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -8,6 +8,7 @@ import ChatModal from '../../components/ChatModal';
 
 export default function HomeScreen() {
   const [chatVisibility, setChatVisibility] = useState(false);
+  const [actualQuestion, setActualQuestion] = useState('');
 
   const handleChatVisibility= () => {
     setChatVisibility(!chatVisibility)
@@ -52,12 +53,12 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
-  <Pressable
+      <Pressable
           style={[styles.button]}
           onPress={handleChatVisibility}>
           <ThemedText style={styles.textStyle}>Chat</ThemedText>
         </Pressable>
-    <ChatModal chatVisibility={chatVisibility} setChatVisibility={setChatVisibility} />
+    <ChatModal chatVisibility={chatVisibility} setChatVisibility={setChatVisibility} actualQuestion={actualQuestion}/>
     </ParallaxScrollView>
   );
 }

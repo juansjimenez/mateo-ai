@@ -2,28 +2,32 @@ import React, { useState } from 'react';
 import { View, FlatList, StyleSheet,Modal, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import ChatMessage from './ChatMessage';
-
+import WebsocketTerminal from '@/server/websocket';
 
 interface ChatModalProps {
   chatVisibility: boolean;
   setChatVisibility: (value: boolean) => void;
+  actualQuestion: string;
 }
 
-const ChatModal = ({chatVisibility, setChatVisibility}:ChatModalProps) => {
-const initial=  { text: 'En qué quieres que te ayude?', origin: 'bot' }
-const options= ['Explicame', 'Siguiente pregunta']
+function ChatModal({actualQuestion, chatVisibility, setChatVisibility}: ChatModalProps) {
+  const initial=  { text: 'En qué quieres que te ayude?', origin: 'bot' }
+  const options= ['Explicame', 'Siguiente pregunta']
   const [messages, setMessages] = useState([
    initial
   ]);
+
+const {sendMessageToSocket} = WebsocketTerminal({setMessages})
 
   const [currentOptions, setCurrentOptions] = useState(options); // Options displayed in the selector
 
   const handleOptionSelected = (option:string) => {
     // Add the user's choice as a message
-    setMessages((prev) => [
+    /*setMessages((prev) => [
       ...prev,
       { id: prev.length + 1, text: option, origin: 'user' },
-    ]);
+    ])*/
+    sendMessageToSocket({message:option, question:actualQuestion})
 
     // Simulate bot response based on the choice
     if (option === 'Explicame') {
@@ -31,12 +35,12 @@ const options= ['Explicame', 'Siguiente pregunta']
         ...prev,
         {
           id: prev.length + 2,
-          text: 'Let me explain it again.',
-          origin: 'bot',
-          options,
+          text: 'Explicame',
+          origin: 'user',
         },
-      ]);
-
+        {
+text:'...',
+origin: 'bot'}]);
     } else {
       setChatVisibility(false)
       setMessages(() => [initial]);
@@ -49,8 +53,8 @@ const options= ['Explicame', 'Siguiente pregunta']
     <View style={styles.container}>
       <FlatList
         data={messages}
-        renderItem={({ item, index }) => (
-          <ChatMessage message={item} id= {index}/>
+        renderItem={({ item }) => (
+          <ChatMessage message={item} />
         )}
         contentContainerStyle={styles.chatList}
       />
@@ -59,8 +63,8 @@ const options= ['Explicame', 'Siguiente pregunta']
       {currentOptions.length > 0 && (
         <View style={styles.selectorContainer}>
           {currentOptions.map((option, index) => (
-  <Pressable
- key={index}
+       <Pressable
+          key={index}
           style={[styles.button]}
           onPress={() => handleOptionSelected(option)}>
           <ThemedText style={styles.textStyle}>{option}</ThemedText>
