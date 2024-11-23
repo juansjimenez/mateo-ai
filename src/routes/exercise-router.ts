@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { get, getAll, getMongoConnection } from "../integrations/mongo";
+import { uuid } from 'uuidv4';
+import { get, getAll, upsert, getMongoConnection } from "../integrations/mongo";
+
 
 const exerciseRouter = Router();
 
@@ -7,22 +9,29 @@ exerciseRouter.get('/all', async (req, res) => {
   const db = await getMongoConnection('exercises');
   const exercises = await getAll(db, 'exercises');
   
-  res.status(201).json({ message: exercises});
+  res.status(200).json({ message: exercises});
 });
 
-exerciseRouter.get('/get/:identifier', async (req, res) => {
+exerciseRouter.get('/:identifier', async (req, res) => {
   const { identifier } = req.params;
 
   const db = await getMongoConnection('exercises');
   const exercises = await get(db, 'exercises', { identifier});
   
-  res.status(201).json({ message: exercises});
+  res.status(200).json({ message: exercises});
 });
 
-exerciseRouter.post('/update', async (req, res) => {
-  const rawBody = req.body;
+exerciseRouter.post('/:identifier?', async (req, res) => {
+  const {
+    body, 
+    params
+  } = req;
+  const identifier = params.identifier || uuid();
 
-  res.status(201).json({ message: rawBody });
+  const db = await getMongoConnection('exercises');
+  const uspertedExercise = await upsert(db, 'exercises', body, { identifier });
+
+  res.status(201).json({ message: uspertedExercise });
 });
 
 export default exerciseRouter;
