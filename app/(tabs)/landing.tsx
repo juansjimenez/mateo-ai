@@ -1,5 +1,6 @@
 import { View, Image,StyleSheet, Text, ImageSourcePropType } from 'react-native';
 import { ProgressBar } from '../../components'
+import { Avatar, List, MD2Colors, MD3Colors } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,17 +12,8 @@ const styles = StyleSheet.create({
     height: 100,
     resizeMode: 'stretch',
   },
-  progress: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 30,
-    width: 100
-  },
   contentRow: {
     flex: 1,
-
     backgroundColor: '#rgba(255, 170, 35, 0.3)', 
     top: 20,
     content: 'center',
@@ -38,15 +30,15 @@ const styles = StyleSheet.create({
 function moduleCard(source: ImageSourcePropType | undefined){
   return(
   
-    <View className="pr-8">
-      <View className="flex flex-row pb-10">
-        <ProgressBar/>
+    <View>
+      <View >
+        <ProgressBar
+        />
       </View>
-      <View className="flex flex-row">
+      <View>
         <Image
           style={styles.stretch}
           source={source}
-
         />
       </View>
     </View>
@@ -56,6 +48,7 @@ function moduleCard(source: ImageSourcePropType | undefined){
 export default function LandingDashboard() {
   return (
     <View>
+    
       <View 
         style={styles.contentRow}>
           <Text
@@ -66,7 +59,7 @@ export default function LandingDashboard() {
         </View>
       <View style={styles.container}>
 
-          <View >
+          <View className='container' >
           {moduleCard(require("../../assets/images/modules/modulo1.png"))}
           </View>
 

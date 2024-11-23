@@ -3,12 +3,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const styles = StyleSheet.create({
   progress: {
-    position: 'absolute',
+    position: 'relative',
     left: 0,
     right: 0,
     top: 0,
+    bottom: 0,
     height: 30,
-    width: 100
+    width: 100,
+    paddingY: 10,
+    borderRadius: 10
   },
 });
 
