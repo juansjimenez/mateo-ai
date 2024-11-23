@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "start": "node server.ts",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -34,6 +34,8 @@
     "expo-symbols": "~0.2.0",
     "expo-system-ui": "~4.0.4",
     "expo-web-browser": "~14.0.1",
+    "express": "^4.21.1",
+    "morgan": "^1.10.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-native": "0.76.3",
