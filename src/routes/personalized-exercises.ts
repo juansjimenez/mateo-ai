@@ -4,6 +4,8 @@ import { get, getAll, upsert, getMongoConnection, insertMany } from "../integrat
 import { Exercise, PersonalizedExercise, PersonalizeExercisesBody, Profile } from '../types';
 import { analyzeHistory, personalizeExercises } from '../helpers';
 import { disconnect } from 'mongoose';
+import { askChatGPT } from '../integrations/chatgpt';
+import { solveExercisePrompt } from '../prompts';
 
 
 const personalizedExerciseRouter = Router();
@@ -112,5 +114,17 @@ personalizedExerciseRouter.post('/submit-answer', async (req, res) => {
 });
 
 
+personalizedExerciseRouter.get('/solution-explanation/:identifier', async (req, res) => {
+  const { identifier } = req.params;
+  const db = await getMongoConnection();
+  const personalizedExercise: PersonalizedExercise = await get(db, 'personalized-exercises', { identifier });
+  const prompt = solveExercisePrompt(personalizedExercise);
+  const solutionExplanation = await askChatGPT(prompt);
+
+  await upsert(db, 'personalized-exercises', { solutionExplanation }, { identifier });
+
+  await disconnect();
+  res.status(200).json({ message: solutionExplanation });
+});
 
 export default personalizedExerciseRouter;
