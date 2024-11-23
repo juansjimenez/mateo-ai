@@ -1,8 +1,53 @@
-import { StyleSheet, Platform, Pressable} from 'react-native';
 import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { ImageSourcePropType, Pressable, Text, StyleSheet, View, Image } from 'react-native';
+import { Card } from 'react-native-paper'
+import { ProgressBar, AlternativeSelection } from '@/components';
+import React, { PropsWithChildren, useState } from 'react';
+import {loremImpsum} from '@/assets/loremipsum'
+import ChatModal from '../../components/ChatModal';
+import { ThemedText } from '@/components/ThemedText';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+
+function moduleCard(source: ImageSourcePropType | undefined){
+  return(
+  
+    <View>
+      <View >
+        <ProgressBar
+        />
+      </View>
+      <View>
+        <Image
+          style={styles.stretch}
+          source={source}
+        />
+      </View>
+    </View>
+  )
+}
+
+function LandingDashboard() {
+  return (
+    <View>
+      <View 
+        style={styles.contentRow}>
+          <Text
+            style={styles.contentRowText}
+          >
+            Asignaturas
+          </Text>
+        </View>
+      <View style={styles.container}>
+
+          <View className='container' >
+          {moduleCard(require("../../assets/images/modules/modulo1.png"))}
+          </View>
+
+      </View>
+    </View>
+  );
+}
 
 export default function HomeScreen() {
 
@@ -16,21 +61,11 @@ export default function HomeScreen() {
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
+
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+        <ThemedText type="subtitle">Asignaturas</ThemedText>
+          {LandingDashboard()}
         <ThemedText>
           Tap the Explore tab to learn more about what's included in this starter app.
         </ThemedText>
@@ -83,4 +118,32 @@ height: '100%'
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  container: {
+    paddingTop: 20,
+    paddingLeft: 20,
+  },
+  stretch: {
+    width: 100,
+    height: 100,
+    resizeMode: 'stretch',
+  },
+  contentRow: {
+    flex: 1,
+    backgroundColor: '#rgba(255, 170, 35, 0.3)', 
+    top: 20,
+    content: 'center',
+  },
+  contentRowText: {
+    fontSize: 20,
+    color: 'black',
+    height: 50,
+    paddingLeft: 20,
+    paddingTop: 10,
+  },
+  headerImage: {
+    color: '#808080',
+    bottom: -90,
+    left: -35,
+    position: 'absolute',
+  }
 });
