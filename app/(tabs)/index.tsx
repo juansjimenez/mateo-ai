@@ -1,5 +1,5 @@
 import { ImageSourcePropType, Text, StyleSheet, View, Image } from 'react-native';
-import { ProgressBar } from '@/components';
+import { ProgressBar, size } from '@/components';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -7,7 +7,7 @@ function moduleCard(source: ImageSourcePropType | undefined) {
   return (
     <View>
       <View>
-        <ProgressBar />
+        <ProgressBar barsize={size.small} />
       </View>
       <View>
         <Image style={styles.stretch} source={source} />

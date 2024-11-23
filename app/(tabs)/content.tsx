@@ -1,13 +1,13 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { AssignmentCard } from '@/components';
+import { AssignmentCard, size } from '@/components';
 import React, { useState } from 'react';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
 function Content(styles: StyleSheet, content: string) {
   return (
     <ParallaxScrollView>
-      <AssignmentCard cardTitle={content} hasProgress={true}>
+      <AssignmentCard cardTitle={content} hasProgress={true} progressSize={size.big}>
         <View style={styles.buttonContainer}></View>
       </AssignmentCard>
     </ParallaxScrollView>
