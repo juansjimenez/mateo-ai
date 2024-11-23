@@ -1,17 +1,5 @@
-interface Subject {
-  identifier: string;
-  name: string;
-}
-
-interface Unit {
-  identifier: string;
-  name: string;
-  subjectId: string;
-  tags?: string[];
-}
-
-type DifficultyLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
-
+import type { Profile } from './profile';
+import type { Unit, Subject } from './subject';
 interface Alternative {
   index: number;
   text: string;
@@ -24,16 +12,17 @@ interface Exercise {
   alternatives: Alternative[];
   subjectId?: string;
   unitId?: string;
-  difficulty?: DifficultyLevel;
+  difficulty?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   explanation?: string;
   tags?: string[];
   imageUrl?: string;
 }
 
+
 export type {
   Subject,
   Unit,
-  DifficultyLevel,
   Exercise,
   Alternative,
+  Profile
 };  

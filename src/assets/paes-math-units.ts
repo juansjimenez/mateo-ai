@@ -1,4 +1,6 @@
-const paesMathUnits = [
+import { Subject } from "../types";
+
+const paesMathUnits: Subject[] = [
   {
     "id": 0,
     "name": "Números",

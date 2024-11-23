@@ -8,6 +8,7 @@ import {
   exerciseRouter,
   personalizedExerciseRouter,
   profileRouter,
+  subjectRouter,
 } from "./routes";
 
 import { createServer } from "http";
@@ -32,6 +33,7 @@ app.use("/profiles", profileRouter);
 app.use("/classify", classifyRouter);
 app.use("/exercises", exerciseRouter);
 app.use("/personalized-exercises", personalizedExerciseRouter);
+app.use("/subjects", subjectRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).send("OK PATOAPATOPOAPOT");
