@@ -1,21 +1,26 @@
 import { Router } from "express";
+import { get, getAll, getMongoConnection } from "../integrations/mongo";
 
 const profileRouter = Router();
 
-profileRouter.get('/all', (req, res) => {
-  console.log('GET /all');
-
-  res.status(201).json({ message: 'GET /all' });
+profileRouter.get('/all', async (req, res) => {
+  const db = await getMongoConnection('profiles');
+  const profiles = await getAll(db, 'profiles');
+  
+  res.status(201).json({ message: profiles});
 });
 
-profileRouter.get('/get/:userId', (req, res) => {
-  console.log('GET /:userId');
-  const { userId } = req.params;
+profileRouter.get('/get/:name', async (req, res) => {
+  console.log('GET /:name');
+  const { name } = req.params;
 
-  res.status(200).json({ message: userId });
+  const db = await getMongoConnection('profiles');
+  const profiles = await get(db, 'profiles', { name});
+  
+  res.status(201).json({ message: profiles});
 });
 
-profileRouter.post('/update', (req, res) => {
+profileRouter.post('/update', async (req, res) => {
   const rawBody = req.body;
 
   res.status(201).json({ message: rawBody });
