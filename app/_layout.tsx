@@ -1,10 +1,11 @@
 //import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useNavigation, Navigator} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+
 
 import {
   MD3DarkTheme,
@@ -17,6 +18,8 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const navigation = useNavigation()
+
 
   const theme = {
     ...MD3LightTheme,
@@ -34,7 +37,7 @@ export default function RootLayout() {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, navigation]);
 
   if (!loaded) {
     return null;
@@ -45,6 +48,7 @@ export default function RootLayout() {
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
+          <Stack.Screen  name="landing" />
         </Stack>
         <StatusBar style="auto" />
       </PaperProvider>
