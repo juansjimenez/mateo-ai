@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ProgressBar(){
+function ProgressBar(){
   return(
       <View className="flex flex-row pb-10">
         <LinearGradient
@@ -28,3 +28,5 @@ export function ProgressBar(){
       </View>
   )
 }
+
+export default ProgressBar;
