@@ -1,6 +1,6 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
 import { Card, Button, useTheme } from 'react-native-paper';
-import { ProgressBar } from '@/components';
+import { ProgressBar, MyButton } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -22,8 +22,7 @@ function AssignmentCard({ children, placeholderImageSource, taskStatement }: Pro
         <Text> {taskStatement} </Text>
       </Card.Content>
       <View style={styles.buttonContainer}>
-        <Button style={styles.button}> Aprender </Button>
-
+        <MyButton> Aprender </MyButton>
       </View>
     </Card>
   );
@@ -68,7 +67,8 @@ const makeStyles = (theme: Theme) => {
       position: 'absolute',
     },
     buttonContainer: {
-      alignContent: 'center'
+      alignContent: 'center',
+      justifyContent: 'center',
     },
     button: {
       borderRadius: 20,
@@ -78,6 +78,7 @@ const makeStyles = (theme: Theme) => {
       width: '50%',
       margin: 20,
       fontColor: 'white',
+      justifyContent: 'center',
     },
     textStyle: {
       color: 'white',
