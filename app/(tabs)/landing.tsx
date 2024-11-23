@@ -1,5 +1,5 @@
 import { View, Image,StyleSheet, Text, ImageSourcePropType } from 'react-native';
-import { ProgressBar } from '../components'
+import { ProgressBar } from '../../components'
 
 const styles = StyleSheet.create({
   container: {
@@ -66,9 +66,8 @@ export default function LandingDashboard() {
         </View>
       <View style={styles.container}>
 
-          <View className="flex flex-row pt-7" >
-          { moduleCard(require("../assets/images/modules/modulo1.png") ) }
-          { moduleCard(require("../assets/images/modules/modulo2.png")) }
+          <View >
+          {moduleCard(require("../../assets/images/modules/modulo1.png"))}
           </View>
 
       </View>
