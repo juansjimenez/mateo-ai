@@ -1,6 +1,6 @@
 import { ImageSourcePropType, Pressable, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
-import { ProgressBar, AlternativeSelection } from '@/components';
+import { AlternativeSelection, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ChatModal from '../../components/ChatModal';
@@ -12,21 +12,6 @@ type Props = PropsWithChildren<{
   taskStatement: string;
 }>;
 
-function AssignmentCard({ children, placeholderImageSource, taskStatement }: Props) {
-  const [chatVisibility, setChatVisibility] = useState(false);
-  const [actualQuestion, setActualQuestion] = useState('');
-
-  return (
-    <Card>
-      <ProgressBar />
-      <Card.Cover source={placeholderImageSource} />
-      <Card.Title title="Card Title" />
-      <Card.Content>
-        <Text> {taskStatement} </Text>
-      </Card.Content>
-    </Card>
-  );
-}
 
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
@@ -40,6 +25,7 @@ export default function Assignment() {
       <AssignmentCard
         placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
         taskStatement={loremImpsum}
+        hasProgress={false}
       />
       <AlternativeSelection />
       <Pressable style={[styles.button]} onPress={handleChatVisibility}>

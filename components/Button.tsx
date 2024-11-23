@@ -34,6 +34,7 @@ const makeStyles = (theme: Theme) => {
       width: '10%',
       marginTop: 10,
       color: 'white',
+      flexDirection: 'row',
     },
     buttonColor: {
       backgroundColor: theme.colors.clickable,
