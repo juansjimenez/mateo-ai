@@ -1,10 +1,4 @@
-import {
-  ImageSourcePropType,
-  Text,
-  StyleSheet,
-  View,
-  Image,
-} from 'react-native';
+import { ImageSourcePropType, Text, StyleSheet, View, Image } from 'react-native';
 import { ProgressBar } from '@/components';
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';

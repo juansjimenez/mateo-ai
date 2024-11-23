@@ -1,7 +1,7 @@
-import { ImageSourcePropType, Pressable, Text, StyleSheet } from 'react-native';
-import { Card, Button, useTheme } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { Button, useTheme } from 'react-native-paper';
 
-import React, { PropsWithChildren, useState } from 'react';
+import React, { useState } from 'react';
 
 export function MyButton() {
   const [buttonClicked, setButtonOnClick] = useState(false);
