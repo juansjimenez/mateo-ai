@@ -1,9 +1,10 @@
-import { ImageSourcePropType, Pressable, Text, StyleSheet } from 'react-native';
-import { Card } from 'react-native-paper'
+import { ImageSourcePropType, Pressable, Text, StyleSheet, Theme } from 'react-native';
+import { Card, Button, useTheme } from 'react-native-paper'
 import { ProgressBar } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import {loremImpsum} from '@/assets/loremipsum'
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
 
 
 type Props = PropsWithChildren<{
@@ -16,7 +17,8 @@ function AssignmentCard( {
   placeholderImageSource,
   taskStatement,
 }: Props ) {
-
+  const theme = useTheme()
+  const styles  = makeStyles(theme)
   return (
     <Card>
       <ProgressBar />
@@ -25,6 +27,7 @@ function AssignmentCard( {
       <Card.Content>
         <Text> {taskStatement} </Text>
       </Card.Content>
+      <Button style={styles.button}> Aprender </Button>
     </Card>
   );
 }
@@ -33,6 +36,7 @@ function AssignmentCard( {
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
   const [actualQuestion, setActualQuestion] = useState('');
+  const theme = useTheme()
   const handleChatVisibility= () => {
     setChatVisibility(!chatVisibility)
   }
@@ -48,7 +52,8 @@ export default function Assignment() {
     );
   };
 
-  const styles = StyleSheet.create({
+const makeStyles  = (theme: Theme) =>{
+ return StyleSheet.create({
     home:{
     height: '100%'
     },
@@ -72,10 +77,10 @@ export default function Assignment() {
         borderRadius: 20,
         padding: 10,
         elevation: 2,
-        backgroundColor: '#0078fe',
+        backgroundColor: theme.colors.clickable,
         width: '10%',
-        marginLeft:'auto',
-        marginTop:'auto'
+        marginTop:10,
+        color: 'white'
       },
      textStyle: {
         color: 'white',
@@ -85,4 +90,6 @@ export default function Assignment() {
       exerciseimage: {
         boxSizing: 'fit'
       }
-    });
+    })
+  };
+

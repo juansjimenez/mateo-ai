@@ -11,7 +11,6 @@ import {
   MD3LightTheme,
   PaperProvider,
 } from 'react-native-paper';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -26,6 +25,8 @@ export default function RootLayout() {
       ...MD3LightTheme.colors,
       primary: 'tomato',
       secondary: 'yellow',
+      clickable: '#39FA63',
+      clickablehover: '#0FD239',
     },
   };
   const [loaded] = useFonts({
