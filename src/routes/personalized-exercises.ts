@@ -12,6 +12,7 @@ personalizedExerciseRouter.get('/all', async (req, res) => {
   const db = await getMongoConnection();
   const personalizedExercises: PersonalizedExercise[] = await getAll(db, 'personalized-exercises');
   
+  await disconnect();
   res.status(200).json({ message: personalizedExercises});
 });
 
@@ -21,6 +22,7 @@ personalizedExerciseRouter.get('/:identifier', async (req, res) => {
   const db = await getMongoConnection();
   const personalizedExercise: PersonalizedExercise = await get(db, 'personalized-exercises', { identifier});
   
+  await disconnect();
   res.status(200).json({ message: personalizedExercise});
 });
 
@@ -31,6 +33,7 @@ personalizedExerciseRouter.post('/', async (req, res) => {
   const db = await getMongoConnection();
   const upsertedPersonalizedExercise: PersonalizedExercise = await upsert(db, 'personalized-exercises', body, { identifier });
 
+  await disconnect();
   res.status(201).json({ message: upsertedPersonalizedExercise });
 });
 
@@ -48,25 +51,20 @@ personalizedExerciseRouter.post('/personalize', async (req, res) => {
 
   const db = await getMongoConnection();
 
-  const exercises: Exercise[] = await getAll(db, 'exercises', filter);
-  await disconnect();
-
-
   const profile: Profile = await get(db, 'profiles', { identifier: profileIdentifier });
 
+  const exercises: Exercise[] = await getAll(db, 'exercises', filter);
   const randomFiveExercises: Exercise[] = exercises.sort(() => 0.5 - Math.random()).slice(0, 5);
-  console.log({
-    randomFiveExercises,
-  })
+
   const personalizedExercises = await personalizeExercises({
     profileIdentifier,
     exercises: randomFiveExercises,
     preferences: profile.preferences,
   })
-  await disconnect();
 
   await insertMany(db, 'personalized-exercises', personalizedExercises);
 
+  await disconnect();
   res.status(201).json({ message: personalizedExercises })
 });
 

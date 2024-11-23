@@ -4,6 +4,7 @@ import { askChatGPT } from "../integrations/chatgpt";
 import { get, getAll, getMongoConnection, upsert } from "../integrations/mongo";
 import { assignDifficultyPrompt, classifyPrompt } from "../prompts";
 import { Exercise } from "../types";
+import { disconnect } from 'mongoose';
 
 const classifyRouter = Router();
 function transformLatexToPlainText(inputText: string): string {
@@ -66,6 +67,7 @@ classifyRouter.post("/new", async (req, res) => {
 
   const success = result.upsertedCount === 1;
 
+  await disconnect();
   res.status(201).json({ result, success });
 });
 
@@ -120,6 +122,7 @@ classifyRouter.post("/assign-subject-all", async (req, res) => {
     }
   }
 
+  await disconnect();
   res.status(200).json({ migratedCount });
 });
 
