@@ -17,7 +17,6 @@ export function MyButton() {
         buttonClicked ? styles.buttonSecondaryColor : styles.buttonColor,
       ]}
       onPress={() => handleButtonClick()}
-      
     >
       {' '}
       Aprender{' '}

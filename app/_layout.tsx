@@ -22,6 +22,7 @@ export default function RootLayout() {
       clickable: '#39FA63',
       clickablehover: '#0FD239',
     },
+    font: 'Roboto',
   };
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),

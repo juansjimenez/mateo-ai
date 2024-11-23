@@ -12,7 +12,6 @@ type Props = PropsWithChildren<{
   taskStatement: string;
 }>;
 
-
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
   const [actualQuestion, setActualQuestion] = useState('');
