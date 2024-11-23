@@ -2,10 +2,9 @@ import { ImageSourcePropType, Pressable, Text, StyleSheet, Theme } from 'react-n
 import { Card, Button, useTheme } from 'react-native-paper'
 import { ProgressBar } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
-import {loremImpsum} from '@/assets/loremipsum'
+import { loremImpsum } from '@/assets/loremipsum';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
-
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
@@ -23,7 +22,7 @@ function AssignmentCard( {
     <Card>
       <ProgressBar />
       <Card.Cover source={placeholderImageSource} />
-      <Card.Title title="Card Title"/>
+      <Card.Title title="Card Title" />
       <Card.Content>
         <Text> {taskStatement} </Text>
       </Card.Content>
@@ -31,7 +30,6 @@ function AssignmentCard( {
     </Card>
   );
 }
-
 
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);

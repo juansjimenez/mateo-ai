@@ -1,5 +1,5 @@
 import { useFonts } from 'expo-font';
-import { Stack, useNavigation, Navigator} from 'expo-router';
+import { Stack, useNavigation, Navigator } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
@@ -16,8 +16,7 @@ import {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const navigation = useNavigation()
-
+  const navigation = useNavigation();
 
   const theme = {
     ...MD3LightTheme,
@@ -44,12 +43,12 @@ export default function RootLayout() {
   }
 
   return (
-      <PaperProvider theme={theme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="landing" options={{ headerShown: false }} />
-        </Stack>
-        <StatusBar style="auto" />
-      </PaperProvider>
+    <PaperProvider theme={theme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="landing" options={{ headerShown: false }} />
+      </Stack>
+      <StatusBar style="auto" />
+    </PaperProvider>
   );
 }
