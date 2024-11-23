@@ -1,36 +1,15 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
 import { Card, useTheme } from 'react-native-paper';
-import { ProgressBar, MyButton } from '@/components';
+import { ProgressBar, MyButton, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
-type Props = PropsWithChildren<{
-  placeholderImageSource: ImageSourcePropType | undefined;
-  taskStatement: string;
-}>;
-
-function AssignmentCard({ children, placeholderImageSource, taskStatement }: Props) {
-  const theme = useTheme();
-  const styles = makeStyles(theme);
-  return (
-    <Card>
-      <ProgressBar />
-      <Card.Cover source={placeholderImageSource} />
-      <Card.Title title="Card Title" />
-      <Card.Content>
-        <Text> {taskStatement} </Text>
-      </Card.Content>
-      <View style={styles.buttonContainer}>
-        <MyButton> Aprender </MyButton>
-      </View>
-    </Card>
-  );
-}
 
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
   const theme = useTheme();
+  const styles = makeStyles(theme)
   const handleChatVisibility = () => {
     setChatVisibility(!chatVisibility);
   };
@@ -40,7 +19,12 @@ export default function Assignment() {
       <AssignmentCard
         placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
         taskStatement={loremImpsum}
-      />
+        hasProgress ={true}>
+        
+            <View style={styles.buttonContainer}>
+          <MyButton> Aprender </MyButton>
+        </View>
+        </AssignmentCard>
     </ParallaxScrollView>
   );
 }

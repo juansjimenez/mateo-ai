@@ -23,7 +23,7 @@ export default function AssignmentCard({ children, placeholderImageSource, taskS
         <Text> {taskStatement} </Text>
       </Card.Content>
       <View style={styles.buttonContainer}>
-        <MyButton> Aprender </MyButton>
+        {children}
       </View>
     </Card>
   );
