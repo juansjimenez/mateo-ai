@@ -1,8 +1,18 @@
 import { ImageSourcePropType, Text, View } from 'react-native';
 import { Card } from 'react-native-paper'
 import { ProgressBar } from '@/components';
+import { PropsWithChildren, ReactElement } from 'react';
 
-function AssignmentCard(placeholderImageSource: ImageSourcePropType | undefined, taskStatement:string ) {
+type Props = PropsWithChildren<{
+  placeholderImageSource: ImageSourcePropType | undefined;
+  taskStatement: string;
+}>;
+
+function AssignmentCard( {
+  children,
+  placeholderImageSource,
+  taskStatement,
+}: Props ) {
   return (
     <Card>
       <ProgressBar />
@@ -14,3 +24,15 @@ function AssignmentCard(placeholderImageSource: ImageSourcePropType | undefined,
     </Card>
   );
 }
+
+
+export default function Assignment() {
+    return (
+        <View>
+          <AssignmentCard 
+            placeholderImageSource={require('../../assets/images/modules/modulo1.png')}
+            taskStatement="This is a task statement"
+          />
+       </View>
+    );
+  };
