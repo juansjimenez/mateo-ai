@@ -1,3 +1,5 @@
 import ProgressBar from './ui/ProgressBar';
 import AlternativeSelection from './Alternative';
-export { ProgressBar, AlternativeSelection };
+import { MyButton } from './Button';
+import AssignmentCard from './AssignmentCard';
+export { ProgressBar, AlternativeSelection, MyButton, AssignmentCard };
