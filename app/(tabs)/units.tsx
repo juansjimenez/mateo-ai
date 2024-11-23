@@ -1,50 +1,33 @@
-import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
-import { Card, useTheme } from 'react-native-paper';
-import { MyButton, AssignmentCard } from '@/components';
-import React, { PropsWithChildren, useState } from 'react';
-import { loremImpsum } from '@/assets/loremipsum';
+import { StyleSheet, Theme } from 'react-native';
+import { AssignmentCard } from '@/components';
+import React, { useState } from 'react';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 
-export default function Assignments() {
-  const [assignments, setAssignments] = useState([]);
-  const theme = useTheme();
-  const styles = makeStyles(theme);
-
+function Assignment(assignmentTitle: string) {
   return (
-    <ParallaxScrollView>
-      <AssignmentCard
-        placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
-        hasProgress={true}
-        cardTitle={'Ecuaciones Simples'}
-      >
-        <View style={styles.buttonContainer}></View>
-      </AssignmentCard>
-    </ParallaxScrollView>
+    <AssignmentCard
+      placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
+      hasProgress={true}
+      cardTitle={assignmentTitle}
+    ></AssignmentCard>
   );
+}
+
+export default function Assignments() {
+  const [assignments, setAssignments] = useState(['Ecuaciones Simples']);
+  let assignmentsView = [];
+  for (let assignmentIdx in assignments) {
+    let assignment = assignments[assignmentIdx];
+    assignmentsView.push(Assignment(assignment));
+  }
+  return <ParallaxScrollView>{assignmentsView}</ParallaxScrollView>;
 }
 
 const makeStyles = (theme: Theme) => {
   return StyleSheet.create({
-    titleContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    stepContainer: {
-      gap: 8,
-      marginBottom: 8,
-    },
     buttonContainer: {
       alignContent: 'center',
       justifyContent: 'center',
-    },
-    textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    exerciseimage: {
-      boxSizing: 'fit',
     },
   });
 };
