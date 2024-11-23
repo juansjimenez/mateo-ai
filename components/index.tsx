@@ -1,4 +1,4 @@
-import { ProgressBar } from './ui/progressBar'
+import { ProgressBar } from './ui/ProgressBar'
 export {
     ProgressBar
 }
