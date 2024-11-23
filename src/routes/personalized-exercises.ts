@@ -2,7 +2,7 @@ import { Router } from "express";
 import { uuid } from 'uuidv4';
 import { get, getAll, upsert, getMongoConnection, insertMany } from "../integrations/mongo";
 import { Exercise, PersonalizedExercise, PersonalizeExercisesBody, Profile } from '../types';
-import { personalizeExercises } from '../helpers';
+import { analyzeHistory, personalizeExercises } from '../helpers';
 import { disconnect } from 'mongoose';
 
 
@@ -66,6 +66,28 @@ personalizedExerciseRouter.post('/personalize', async (req, res) => {
 
   await disconnect();
   res.status(201).json({ message: personalizedExercises })
+});
+
+personalizedExerciseRouter.get('/history/:profileIdentifier', async (req, res) => {
+  const { profileIdentifier } = req.params;
+
+  const db = await getMongoConnection();
+  const personalizedExercises: PersonalizedExercise[] = await getAll(db, 'personalized-exercises', { profileIdentifier });
+
+  const originalExercises = await getAll(db, 'exercises', { identifier: { $in: personalizedExercises.map((pe) => pe.originalExerciseIdentifier) } });
+
+  const personalizedExercisesWithOriginalExercises = personalizedExercises.map((pe) => {
+    const originalExercise = originalExercises.find((oe: Exercise) => oe.identifier === pe.originalExerciseIdentifier);
+    return {
+      ...pe,
+      originalExerciseFull: originalExercise,
+    }
+  });
+
+  const historyAnalysis = analyzeHistory(personalizedExercisesWithOriginalExercises);
+
+  await disconnect();
+  res.status(200).json({ historyAnalysis });
 });
 
 

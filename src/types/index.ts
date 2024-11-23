@@ -24,7 +24,13 @@ interface PersonalizedExercise extends Exercise {
   originalExerciseIdentifier: string;
   preferences: Preference[];
   submittedAnswer?: Alternative;
+  isCorrect?: boolean;
+  answeredAt?: Date;
   solutionExplanation?: string;
+}
+
+interface PersonalizedExerciseFull extends PersonalizedExercise {
+  originalExerciseFull: Exercise;
 }
 
 interface PersonalizeExercisesBody {
@@ -42,4 +48,5 @@ export type {
   PersonalizeExercisesBody,
   Preference,
   Profile,
+  PersonalizedExerciseFull,
 };  
