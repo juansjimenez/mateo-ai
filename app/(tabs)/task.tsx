@@ -1,11 +1,10 @@
-import { ImageSourcePropType, Pressable, Text, StyleSheet } from 'react-native';
-import { Card } from 'react-native-paper';
+import { ImageSourcePropType, Pressable, StyleSheet } from 'react-native';
 import { AlternativeSelection, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ChatModal from '../../components/ChatModal';
 import { ThemedText } from '@/components/ThemedText';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
@@ -20,7 +19,7 @@ export default function Assignment() {
   };
 
   return (
-    <ParallaxScrollView>
+    <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>
       <AssignmentCard
         placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
         taskStatement={loremImpsum}
@@ -35,7 +34,7 @@ export default function Assignment() {
         setChatVisibility={setChatVisibility}
         actualQuestion={actualQuestion}
       />
-    </ParallaxScrollView>
+    </ScrollView>
   );
 }
 

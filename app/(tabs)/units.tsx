@@ -1,7 +1,7 @@
 import { StyleSheet, Theme } from 'react-native';
 import { AssignmentCard } from '@/components';
 import React, { useState } from 'react';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ScrollView } from 'react-native-gesture-handler';
 
 function Assignment(assignmentTitle: string) {
   return (
@@ -20,7 +20,7 @@ export default function Assignments() {
     let assignment = assignments[assignmentIdx];
     assignmentsView.push(Assignment(assignment));
   }
-  return <ParallaxScrollView>{assignmentsView}</ParallaxScrollView>;
+  return  <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>{assignmentsView}</ScrollView>;
 }
 
 const makeStyles = (theme: Theme) => {
