@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     backgroundColor: '#0078fe',
-    width: '10%',
+    width: '30%',
     marginLeft: 'auto',
     marginTop: 'auto',
   },
