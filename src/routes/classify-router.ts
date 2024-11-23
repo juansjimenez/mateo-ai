@@ -1,7 +1,7 @@
-import { Router } from "express";
+import e, { Router } from "express";
 import * as he from "he";
 import { askChatGPT } from "../integrations/chatgpt";
-import { get, getMongoConnection, upsert } from "../integrations/mongo";
+import { get, getAll, getMongoConnection, upsert } from "../integrations/mongo";
 import { assignDifficultyPrompt, classifyPrompt } from "../prompts";
 import { Exercise } from "../types";
 
@@ -69,36 +69,58 @@ classifyRouter.post("/new", async (req, res) => {
   res.status(201).json({ result, success });
 });
 
-classifyRouter.post("/assign-subject", async (req, res) => {
-  const identifier = req.body.identifier;
-  const db = await getMongoConnection("exercises");
-  const exercise = await get(db, "exercises", { identifier });
+classifyRouter.post("/assign-subject-all", async (req, res) => {
+  res.setTimeout(1000 * 60 * 60 * 24, () => {
+    console.log('Request has timed out.');
+    res.sendStatus(408);
+  });
 
-  if (!exercise) {
+  const db = await getMongoConnection("exercises");
+  const exercises = await getAll(db, "exercises", {});
+
+  console.log("Exercises found:", exercises.length);
+
+  const filetedExercises = exercises.filter((exercise: Exercise) => !exercise.subjectId || !exercise.unitId || !exercise.difficulty);
+
+  console.log("Exercises to classify:", filetedExercises.length);
+
+  if (!exercises || exercises.length === 0) {
     throw new Error("Exercise not found");
   }
 
-  const prompt = classifyPrompt(exercise);
-  const prediction = await askChatGPT(prompt);
+  let migratedCount = 0;
+  for (let i = 0; i < filetedExercises.length; i++) {
+    const exercise = filetedExercises[i];
 
-  console.log("Prediction:", prediction);
+    console.log("Assigning subject to exercise:", exercise.identifier);
+    const prompt = classifyPrompt(exercise);
+    const prediction = await askChatGPT(prompt);
 
-  const { unit, subject } = JSON.parse(prediction);
+    console.log("Prediction:", prediction);
 
-  const difficultyPrompt = assignDifficultyPrompt(exercise);
-  const difficulty = await askChatGPT(difficultyPrompt);
+    const { unit, subject } = JSON.parse(prediction);
 
-  const newExercise = {
-    ...exercise,
-    subjectId: subject,
-    unitId: unit,
-    difficulty: Number(difficulty),
-  };
+    const difficultyPrompt = assignDifficultyPrompt(exercise);
+    const difficulty = await askChatGPT(difficultyPrompt);
 
-  const result = await upsert(db, "exercises", newExercise, { identifier });
-  const success = result.upsertedCount === 1;
+    console.log("Difficulty:", difficulty);
 
-  res.status(201).json({ result, success });
+    const newExercise = {
+      ...exercise,
+      subjectId: subject,
+      unitId: unit,
+      difficulty: Number(difficulty),
+    };
+
+    const result = await upsert(db, "exercises", newExercise, { identifier: exercise.identifier });
+    const success = result.upsertedCount === 1;
+
+    if (success) {
+      migratedCount++;
+    }
+  }
+
+  res.status(200).json({ migratedCount });
 });
 
 export default classifyRouter;
