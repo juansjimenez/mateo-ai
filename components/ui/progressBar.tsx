@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ProgressBar(progress: StyleSheet){
+export function ProgressBar(){
   return(
       <View className="flex flex-row pb-10">
         <LinearGradient
