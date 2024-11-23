@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { TextInput } from 'react-native-paper';
 import { useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
+import Server from '@/server/server';
 
 interface Preference {
   category: string;
@@ -54,16 +55,18 @@ export default function PreferenceScreen() {
     setPreferences({ name: preferences.name, interests: copy });
   };
 
-  const savePreferences = () => {
+  const savePreferences = async () => {
     const selectedInterests: Preference[] = [];
     preferences.interests.map((interest) => {
       if (interest.selected)
         selectedInterests.push({ category: interest.text, value: interest.text });
     });
-    console.log({
+
+    const r = await Server.post('/profiles', {
       name: preferences.name,
       preferences: selectedInterests,
     });
+    console.log('response', r);
   };
 
   return (
