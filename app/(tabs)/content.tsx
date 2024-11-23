@@ -1,13 +1,13 @@
 import { StyleSheet, Theme, View } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { AssignmentCard } from '@/components';
+import { AssignmentCard, size } from '@/components';
 import React, { useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
 function Content(styles: StyleSheet, content: string) {
   return (
-  <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>
-      <AssignmentCard cardTitle={content} hasProgress={true}>
+    <ScrollView>
+      <AssignmentCard cardTitle={content} hasProgress={true} progressSize={size.big}>
         <View style={styles.buttonContainer}></View>
       </AssignmentCard>
     </ScrollView>
