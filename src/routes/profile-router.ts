@@ -10,12 +10,11 @@ profileRouter.get('/all', async (req, res) => {
   res.status(201).json({ message: profiles});
 });
 
-profileRouter.get('/get/:name', async (req, res) => {
-  console.log('GET /:name');
-  const { name } = req.params;
+profileRouter.get('/get/:identifier', async (req, res) => {
+  const { identifier } = req.params;
 
   const db = await getMongoConnection('profiles');
-  const profiles = await get(db, 'profiles', { name});
+  const profiles = await get(db, 'profiles', { identifier});
   
   res.status(201).json({ message: profiles});
 });
