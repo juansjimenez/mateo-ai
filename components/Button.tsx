@@ -14,7 +14,7 @@ export function MyButton() {
     <Button
       style={[
         styles.button,
-        buttonClicked ? styles.buttonColor : styles.buttonSecondaryColor,
+        buttonClicked ? styles.buttonSecondaryColor : styles.buttonColor,
       ]}
       onPress={() => handleButtonClick()}
       

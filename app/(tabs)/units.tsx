@@ -1,5 +1,5 @@
 import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
-import { Card, Button, useTheme } from 'react-native-paper';
+import { Card, useTheme } from 'react-native-paper';
 import { ProgressBar, MyButton } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
@@ -68,16 +68,6 @@ const makeStyles = (theme: Theme) => {
     },
     buttonContainer: {
       alignContent: 'center',
-      justifyContent: 'center',
-    },
-    button: {
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2,
-      backgroundColor: theme.colors.clickable,
-      width: '50%',
-      margin: 20,
-      fontColor: 'white',
       justifyContent: 'center',
     },
     textStyle: {
