@@ -8,10 +8,13 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    height: 30,
+    height: 22,
     width: 100,
-    paddingY: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    borderColor: '#0AFFF0',
+    borderWidth: 2,
+    marginTop: 10,
+    marginBottom: 5,
   },
 });
 
