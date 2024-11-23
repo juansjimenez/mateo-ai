@@ -33,8 +33,11 @@ async function remove(db: any, collectionName: string, filter: object) {
 }
 
 async function upsert(db: any, collectionName: string, newData: object, filter: object = {}) {
-  const document = await db!.collection(collectionName).updateOne(filter, { $set: newData }, { upsert: true });
-  return document;
+  return await db!.collection(collectionName).findOneAndUpdate(
+    filter,
+    { $setOnInsert: newData },
+    { upsert: true, returnDocument: "after" }
+  );
 }
 
 async function insertMany(db: any, collectionName: string, documents: object[]) {

@@ -69,5 +69,10 @@ personalizedExerciseRouter.post('/personalize', async (req, res) => {
 });
 
 
+// personalizedExerciseRouter.post('/submit-answer', async (req, res) => {
+  
+// });
+
+
 
 export default personalizedExerciseRouter;
