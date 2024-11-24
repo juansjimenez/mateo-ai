@@ -1,8 +1,35 @@
-import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
-import React, { useState } from 'react';
+import { View, ScrollView, StyleSheet, SafeAreaView, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { Header, MainContainer } from './';
+import { Svg, Polygon } from 'react-native-svg';
 
 import { RadarChart } from '@salmonco/react-native-radar-chart';
+import Server from '@/server/server';
+import { ProgressBar, size } from '@/components';
+
+interface UnitData {
+  unitId: string;
+  accuracy: number;
+}
+
+interface SubjectData {
+  subjectId: string;
+  accuracy: number;
+}
+
+interface Strength {
+  subject: SubjectData[];
+  units: UnitData[];
+}
+
+interface HistoryAnalysis {
+  globalAccuracy: number;
+  strengths: Strength;
+  weaknesses: {
+    subject: SubjectData[];
+    units: UnitData[];
+  };
+}
 
 const spiderChart = () => {
   const data = [
@@ -36,54 +63,76 @@ const spiderChart = () => {
   );
 };
 
-type strength = {
-  name: string;
-  points: number;
+function Hexagon() {
+  return (
+    <Svg height="300" width="300">
+      <Polygon
+        points="00,150 225,280 75,280 0,150 75,20 225,20 300,150 225,280"
+        stroke="black"
+        fill="white"
+        strokeWidth="1"
+      ></Polygon>
+    </Svg>
+  );
+}
+
+const dummyStrength: Strength = {
+  subject: [],
+  units: [
+    {
+      unitId: 'Dummy Name',
+      accuracy: 2,
+    },
+    {
+      unitId: 'Dummy Name',
+      accuracy: 3,
+    },
+    {
+      unitId: 'Dummy Name',
+      accuracy: 4,
+    },
+  ],
 };
-const dummyStrength: strength[] = [
-  {
-    name: 'Probabilidad',
-    points: 4,
-  },
-  {
-    name: 'Geometría',
-    points: 3,
-  },
-  {
-    name: 'Álgebra',
-    points: 2,
-  },
-  {
-    name: 'Números',
-    points: 1
-  }
-];
 
 function strengthView(points: number, name: string) {
   return (
-    <View style={styles.box}>
-      <View style={[styles.statContainer]}>
-        <View style={[styles.statRow, { width: 100 * points }]}>{name}</View>
-      </View>
+    <View style={[styles.statContainer]}>
+      <Text>{name}</Text>
+      <ProgressBar barsize={size.big} percentage={(100 * points).toFixed(0)} />
     </View>
   );
 }
-function listOfStregths() {
-  const [strengths, listOfStregth] = useState(dummyStrength);
-  let stregthsView = [];
-  for (let strengthIdx in strengths) {
-    const strength = strengths[strengthIdx];
-    stregthsView.push(strengthView(strength.points, strength.name));
+function listOfStrength(strengths: Strength) {
+  let strengthsView = [];
+  for (let index in strengths.units) {
+    const unit = strengths.units[index];
+    strengthsView.push(strengthView(unit.accuracy, unit.unitId));
   }
-  return stregthsView;
+  return strengthsView;
 }
 export default function userStats() {
+  const profileIdentifier = 'ee654115-aa6a-4710-902f-73813ca55bd6';
+  const [strengths, setStrengths] = useState(dummyStrength);
+
+  useEffect(() => {
+    const getQuestion = async () => {
+      const response = await Server.get(
+        `/personalized-exercises/history/${profileIdentifier}`,
+      );
+      console.log('responsseeeee,', response);
+      if (response && response.historyAnalysis) {
+        setStrengths(response.historyAnalysis.strengths);
+      }
+    };
+    getQuestion();
+  }, []);
+
   return (
-    <MainContainer>
+    <MainContainer style={styles.padding}>
       {Header('Avances')}
       <ScrollView>
-        {spiderChart()}
-        {listOfStregths()}
+   {spiderChart()}
+      {listOfStrength(strengths)}
       </ScrollView>
     </MainContainer>
   );
@@ -103,6 +152,7 @@ const styles = StyleSheet.create({
   },
   statContainer: {
     width: '100%',
+    marginTop: 10,
   },
   container: {
     flex: 1,
@@ -112,6 +162,9 @@ const styles = StyleSheet.create({
   box: {
     alignItems: 'center',
     marginLeft: '30%',
-  }
-
+  },
+  padding: {
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
 });
