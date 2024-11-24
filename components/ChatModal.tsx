@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, FlatList, StyleSheet, Modal, Pressable } from 'react-native';
+import { View, StyleSheet, Modal, Pressable, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import ChatMessage from './ChatMessage';
 import server from '@/server/server';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Header } from '@/app/(tabs)';
 
 interface ChatModalProps {
   chatVisibility: boolean;
@@ -21,6 +21,8 @@ function ChatModal({
   const [messages, setMessages] = useState([initial]);
   const [loading, setLoading] = useState(false);
   const [currentOptions, setCurrentOptions] = useState(options);
+
+  console.log('actualQuestionId', actualQuestionId);
 
   const handleOptionSelected = async (option: string) => {
     if (option === 'Explicame') {
@@ -63,29 +65,31 @@ function ChatModal({
   return (
     <Modal animationType="slide" transparent={true} visible={chatVisibility}>
       <View style={styles.container}>
-        <ScrollView style={styles.chatList}>
-          <FlatList
-            data={messages}
-            renderItem={({ item, index }) => <ChatMessage message={item} key={index} />}
-          />
-          {loading && <ChatMessage message={{ text: '...', origin: 'bot' }} />}
-        </ScrollView>
-        {/* Selector Options */}
-        {currentOptions.length > 0 && (
-          <View style={styles.selectorContainer}>
-            {currentOptions.map((option, index) => (
-              <Pressable
-                key={index}
-                style={[styles.button]}
-                onPress={() => handleOptionSelected(option)}
-              >
-                <ThemedText style={styles.textStyle}>{option}</ThemedText>
-              </Pressable>
-            ))}
-          </View>
-        )}
+          {Header('Habla con Mateo')}
+          <ScrollView style={styles.chatList}>
+            {messages.map((m, i) => (<ChatMessage message={m} key={i} />))}
+            {loading && <ChatMessage message={{ text: '...', origin: 'bot' }} />}
+          </ScrollView>
+          {/* Selector Options */}
+          {currentOptions.length > 0 && (
+            <View style={styles.selectorContainer}>
+              {currentOptions.map((option, index) => (
+                <Pressable
+                  key={index}
+                  style={[styles.button]}
+                  onPress={() => handleOptionSelected(option)}
+                >
+                  <ThemedText style={styles.textStyle}>{option}</ThemedText>
+                </Pressable>
+              ))}
+
+            </View>
+
+          )}
+        
       </View>
     </Modal>
+
   );
 }
 

@@ -53,6 +53,7 @@ export default function Task({ subjectId, unitId }: Props) {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [selectedAlternative, setSelectedAlternative] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [answered, setAnswered] = useState(false);
 
   useEffect(() => {
     const getQuestion = async () => {
@@ -75,6 +76,7 @@ export default function Task({ subjectId, unitId }: Props) {
   }, []);
 
   async function handleNextQuestion() {
+    setAnswered(false);
     if (actualQuestionIndex + 1 < allQuestions.length) {
       setActualQuestion(allQuestions[actualQuestionIndex + 1]);
       setActualQuestionIndex(actualQuestionIndex + 1);
@@ -86,6 +88,7 @@ export default function Task({ subjectId, unitId }: Props) {
   function showStats() { }
 
   async function answerQuestion() {
+    setAnswered(true);
     const index = actualQuestion.alternatives.findIndex(
       (alternative) => alternative.text === selectedAlternative
     );
@@ -102,7 +105,6 @@ export default function Task({ subjectId, unitId }: Props) {
 
   const onCheckedChange = async (checked: string) => {
     setSelectedAlternative(checked);
-    await answerQuestion();
   };
 
   const handleChatVisibility = async () => {
@@ -127,12 +129,12 @@ export default function Task({ subjectId, unitId }: Props) {
           onCheckedChange={onCheckedChange}
         />
         <View style={styles.space} />
-        {isCorrect ? (
+        {(answered && isCorrect) ? (
           <ThemedText style={styles.textStyle} centered>
             {' '}
             Correcto! 🎉
           </ThemedText>
-        ) : (
+        ) :  ( answered &&
           <ThemedText style={styles.textStyle} centered>
             {' '}
             Incorrecto! 😞

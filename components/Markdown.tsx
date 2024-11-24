@@ -6,7 +6,7 @@ import Markdown from 'react-native-markdown-display';
 type Props = PropsWithChildren<{
   taskStatement?: string;
   fontColor?: string;
-  fontSize?: string;
+  fontSize?: number;
 }>;
 
 export default function MarkdownView({ taskStatement, fontColor, fontSize }: Props) {

@@ -21,7 +21,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
     >
       <View style={[styles.messageBubble, isUser ? styles.userBubble : styles.botBubble]}>
         {message.isMarkdown ? (
-          <MarkdownView taskStatement={message.text} fontColor="white" fontSize="12" />
+          <MarkdownView taskStatement={message.text} fontColor="white" fontSize={12} />
         ) : (
           <Text style={styles.messageText}>{message.text}</Text>
         )}
