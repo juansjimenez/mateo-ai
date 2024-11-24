@@ -1,8 +1,40 @@
 import {Svg, Polygon } from 'react-native-svg'
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
-import { stringify } from 'querystring';
 
+import {RadarChart} from '@salmonco/react-native-radar-chart';
+
+const spiderChart = () => {
+  const data = [
+    {label: 'data1', value: 30},
+    {label: 'data2', value: 55},
+    {label: 'data3', value: 70},
+    {label: 'data4', value: 35},
+  ];
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <RadarChart
+        data={data}
+        maxValue={100}
+        gradientColor={{
+          startColor: '#FF9432',
+          endColor: '#FFF8F1',
+          count: 5,
+        }}
+        stroke={['#FFE8D3', '#FFE8D3', '#FFE8D3', '#FFE8D3', '#ff9532']}
+        strokeWidth={[0.5, 0.5, 0.5, 0.5, 1]}
+        strokeOpacity={[1, 1, 1, 1, 0.13]}
+        labelColor="#433D3A"
+        dataFillColor="#FF9432"
+        dataFillOpacity={0.8}
+        dataStroke="salmon"
+        dataStrokeWidth={2}
+        isCircle
+      />
+    </SafeAreaView>
+  );
+};
 
 function Hexagon(){
     return(
@@ -37,8 +69,8 @@ const dummyStrength : strength[] = [{
 
 function strengthView(points: number, name: string){
     return(
-        <View style={[style.statContainer]}>
-            <View style={[style.statRow, { width: 100* points } ]}>
+        <View style={[styles.statContainer]}>
+            <View style={[styles.statRow, { width: 100* points } ]}>
                 {name}
             </View>
         </View>
@@ -57,13 +89,13 @@ function listOfStregths() {
 export default function userStats(){
     return(
         <View>
-            
+            {spiderChart()}
             {listOfStregths()}
         </View>
     )
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
       statRow: {
         alignContent: 'center',
         justifyContent: 'center',
@@ -76,6 +108,11 @@ const style = StyleSheet.create({
       },
       statContainer: {
         width: '100%'
-      }
+      },
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
       
     })
