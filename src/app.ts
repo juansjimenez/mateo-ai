@@ -2,7 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import bodyParser from "body-parser";
+const cors = require('cors');
 import express from "express";
+import { Server } from "socket.io";
+
 import {
   classifyRouter,
   exerciseRouter,
@@ -11,13 +14,9 @@ import {
   subjectRouter,
 } from "./routes";
 
-import { createServer } from "http";
-import { Server } from "socket.io";
-
 const app = express();
 const port = process.env.PORT || 3000;
 
-const server = createServer(app);
 const httpserver = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
@@ -26,9 +25,10 @@ const io = new Server(httpserver, {
     origin: "*",
   },
 });
-app.set("socketio", io);
+
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use("/profiles", profileRouter);
 app.use("/classify", classifyRouter);
 app.use("/exercises", exerciseRouter);

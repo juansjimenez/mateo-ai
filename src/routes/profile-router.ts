@@ -17,8 +17,16 @@ profileRouter.get('/all', async (req, res) => {
 profileRouter.get('/:identifier', async (req, res) => {
   const { identifier } = req.params;
 
+  console.log({
+    identifier,
+  })
+
   const db = await getMongoConnection();
-  const profile: Profile = await get(db, 'profiles', { identifier});
+  const profile: Profile = await get(db, 'profiles', { identifier });
+
+  console.log({
+    profile
+  })
   
   await disconnect();
   res.status(200).json({ message: profile});
