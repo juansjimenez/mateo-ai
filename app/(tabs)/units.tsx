@@ -20,7 +20,11 @@ export default function Assignments() {
     let assignment = assignments[assignmentIdx];
     assignmentsView.push(Assignment(assignment));
   }
-  return  <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>{assignmentsView}</ScrollView>;
+  return (
+    <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>
+      {assignmentsView}
+    </ScrollView>
+  );
 }
 
 const makeStyles = (theme: Theme) => {

@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0078fe',
   },
   botBubble: {
-    backgroundColor: '#d0d0d0',
+    backgroundColor: '#0078fe',
   },
   messageText: {
     color: '#fff',

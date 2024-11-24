@@ -1,4 +1,11 @@
-import { ImageSourcePropType, Text, StyleSheet, View, Image, ScrollView } from 'react-native';
+import {
+  ImageSourcePropType,
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+} from 'react-native';
 import { ProgressBar, size } from '@/components';
 import React from 'react';
 

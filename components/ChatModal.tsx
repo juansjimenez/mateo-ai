@@ -2,36 +2,27 @@ import React, { useState } from 'react';
 import { View, FlatList, StyleSheet, Modal, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import ChatMessage from './ChatMessage';
-import WebsocketTerminal from '@/server/websocket';
+import server from '@/server/server';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface ChatModalProps {
   chatVisibility: boolean;
   setChatVisibility: (value: boolean) => void;
-  actualQuestion: string;
+  actualQuestionId: string;
 }
 
 function ChatModal({
-  actualQuestion,
+  actualQuestionId,
   chatVisibility,
   setChatVisibility,
 }: ChatModalProps) {
   const initial = { text: 'En qué quieres que te ayude?', origin: 'bot' };
   const options = ['Explicame', 'Siguiente pregunta'];
   const [messages, setMessages] = useState([initial]);
+  const [loading, setLoading] = useState(false);
+  const [currentOptions, setCurrentOptions] = useState(options);
 
-  const { sendMessageToSocket } = WebsocketTerminal({ setMessages });
-
-  const [currentOptions, setCurrentOptions] = useState(options); // Options displayed in the selector
-
-  const handleOptionSelected = (option: string) => {
-    // Add the user's choice as a message
-    /*setMessages((prev) => [
-      ...prev,
-      { id: prev.length + 1, text: option, origin: 'user' },
-    ])*/
-    sendMessageToSocket({ message: option, question: actualQuestion });
-
-    // Simulate bot response based on the choice
+  const handleOptionSelected = async (option: string) => {
     if (option === 'Explicame') {
       setMessages((prev) => [
         ...prev,
@@ -40,27 +31,42 @@ function ChatModal({
           text: 'Explicame',
           origin: 'user',
         },
-        {
-          text: '...',
-          origin: 'bot',
-        },
       ]);
+      setLoading(true);
+      const response = await server.get(`/personalized-exercises/${actualQuestionId}`);
+      new Promise((resolve) =>
+        setTimeout(() => {
+          resolve('result');
+        }, 3000),
+      );
+      setLoading(false);
+      if (response && response.message && response.message.solutionExplanation) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            text: response.message.solutionExplanation,
+            origin: 'bot',
+          },
+        ]);
+        setCurrentOptions(['Siguiente pregunta']);
+      }
     } else {
       setChatVisibility(false);
       setMessages(() => [initial]);
+      setCurrentOptions(options);
     }
-    setCurrentOptions(options);
   };
 
   return (
     <Modal animationType="slide" transparent={true} visible={chatVisibility}>
       <View style={styles.container}>
-        <FlatList
-          data={messages}
-          renderItem={({ item }) => <ChatMessage message={item} />}
-          contentContainerStyle={styles.chatList}
-        />
-
+        <ScrollView style={styles.chatList}>
+          <FlatList
+            data={messages}
+            renderItem={({ item }) => <ChatMessage message={item} />}
+          />
+          {loading && <ChatMessage message={{ text: '...', origin: 'bot' }} />}
+        </ScrollView>
         {/* Selector Options */}
         {currentOptions.length > 0 && (
           <View style={styles.selectorContainer}>
@@ -86,7 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   chatList: {
-    flexGrow: 1,
     padding: 10,
   },
   selectorContainer: {
