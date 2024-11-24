@@ -5,7 +5,7 @@ import { Header, MainContainer } from '@/app/(tabs)';
 
 function Content(title: string) {
   return (
-    <View style={styles.asignaturaContainer}>
+    <View style={styles.asignaturaContainer} key={title}>
         <Text style={styles.asignaturaTitle}>{title}</Text>
         <View style={styles.barContainer}>
         <ProgressBar barsize={size.small} percentage={80} />
