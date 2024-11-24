@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     maxWidth: '75%',
   },
   userBubble: {
-    backgroundColor: '#0078fe',
+    backgroundColor: '#20c997',
   },
   botBubble: {
     backgroundColor: '#0078fe',

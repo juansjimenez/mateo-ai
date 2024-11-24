@@ -17,7 +17,7 @@ function ChatModal({
   setChatVisibility,
 }: ChatModalProps) {
   const initial = { text: 'En qué quieres que te ayude?', origin: 'bot' };
-  const options = ['Explicame', 'Siguiente pregunta'];
+  const options = ['Explicame', 'Gracias!'];
   const [messages, setMessages] = useState([initial]);
   const [loading, setLoading] = useState(false);
   const [currentOptions, setCurrentOptions] = useState(options);
@@ -53,7 +53,7 @@ function ChatModal({
             isMarkdown: true,
           },
         ]);
-        setCurrentOptions(['Siguiente pregunta']);
+        setCurrentOptions(['Gracias!']);
       }
     } else {
       setChatVisibility(false);
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     borderTopColor: '#ddd',
   },
   button: {
-    backgroundColor: '#0078fe',
+    backgroundColor: '#20c997',
     padding: 10,
     borderRadius: 20,
   },

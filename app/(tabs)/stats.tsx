@@ -1,4 +1,4 @@
-import { View, ScrollView, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView, Text, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Header, MainContainer } from './';
 import { Svg, Polygon } from 'react-native-svg';
@@ -96,9 +96,9 @@ const dummyStrength: Strength = {
 
 function strengthView(points: number, name: string) {
   return (
-    <View style={[styles.statContainer]}>
+    <View style={[styles.statContainer]} key={`${name}-${points}`}>
       <Text>{name}</Text>
-      <ProgressBar barsize={size.big} percentage={(100 * points).toFixed(0)} />
+      <ProgressBar barsize={size.big} percentage={Number((100 * points).toFixed(0))} />
     </View>
   );
 }
@@ -110,19 +110,23 @@ function listOfStrength(strengths: Strength) {
   }
   return strengthsView;
 }
-export default function userStats() {
+export default function Stats() {
   const profileIdentifier = 'ee654115-aa6a-4710-902f-73813ca55bd6';
   const [strengths, setStrengths] = useState(dummyStrength);
+  const [weaknesses, setWeaknesses] = useState(dummyStrength);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getQuestion = async () => {
       const response = await Server.get(
         `/personalized-exercises/history/${profileIdentifier}`,
       );
-      console.log('responsseeeee,', response);
+      console.log('responsseeeee,', JSON.stringify(response));
       if (response && response.historyAnalysis) {
         setStrengths(response.historyAnalysis.strengths);
+        setWeaknesses(response.historyAnalysis.weaknesses);
       }
+      setIsLoading(false);
     };
     getQuestion();
   }, []);
@@ -130,15 +134,27 @@ export default function userStats() {
   return (
     <MainContainer style={styles.padding}>
       {Header('Avances')}
-      <ScrollView>
-   {spiderChart()}
-      {listOfStrength(strengths)}
-      </ScrollView>
+      {isLoading
+        ? <ActivityIndicator size="large" color="#00ff00" />
+        : (
+          <ScrollView>
+            {spiderChart()}
+            <Text style={styles.title}>Debilidades</Text>
+            {listOfStrength(strengths)}
+            <Text style={styles.title}>Fortalezas</Text>
+            {listOfStrength(weaknesses)}
+          </ScrollView>
+        )
+      }
     </MainContainer>
   );
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+    marginTop: 10,
+  },
   statRow: {
     alignContent: 'center',
     justifyContent: 'center',

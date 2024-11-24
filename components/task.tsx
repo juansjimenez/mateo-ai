@@ -26,7 +26,7 @@ interface Question {
 
 export default function Task({ subjectId, unitId }: Props) {
   const [isCorrect, setIsCorrect] = useState(false);
-  const [endpointCalled, setEndpointCalled] = useState(false);
+  const [readyForNextQuestion, setreadyForNextQuestion] = useState(false);
   const [chatVisibility, setChatVisibility] = useState(false);
   const [actualQuestionIndex, setActualQuestionIndex] = useState(0);
   const [actualQuestion, setActualQuestion] = useState({
@@ -89,22 +89,20 @@ export default function Task({ subjectId, unitId }: Props) {
 
   async function answerQuestion() {
     setAnswered(true);
-    const index = actualQuestion.alternatives.findIndex(
-      (alternative) => alternative.text === selectedAlternative
-    );
+    console.log('selectedAlternative', selectedAlternative);
 
-    const response = await Server.post('/personalized-exercises/submit-answer', {
-      identifier: 'ee654115-aa6a-4710-902f-73813ca55bd6',
-      alternativeIndex: index
-    });
+    const isCorrect = actualQuestion.alternatives[Number(selectedAlternative)].isCorrect;
 
-    const isCorrect = response.message.isCorrect;
+    console.log('isCorrect', isCorrect);
+
     setIsCorrect(isCorrect);
-    setEndpointCalled(true);
+    setreadyForNextQuestion(true);
   }
 
   const onCheckedChange = async (checked: string) => {
     setSelectedAlternative(checked);
+    setAnswered(false);
+    setreadyForNextQuestion(false);
   };
 
   const handleChatVisibility = async () => {
@@ -112,8 +110,9 @@ export default function Task({ subjectId, unitId }: Props) {
   };
 
   const handleNextQuestionWrapper = async () => {
-    setEndpointCalled(false);
+    setreadyForNextQuestion(false);
     setIsCorrect(false);
+    setAnswered(false);
     handleNextQuestion();
   }
 
@@ -127,6 +126,7 @@ export default function Task({ subjectId, unitId }: Props) {
         <AlternativeSelection
           alternatives={actualQuestion.alternatives}
           onCheckedChange={onCheckedChange}
+          isDisabled={answered}
         />
         <View style={styles.space} />
         {(answered && isCorrect) ? (
@@ -134,16 +134,16 @@ export default function Task({ subjectId, unitId }: Props) {
             {' '}
             Correcto! 🎉
           </ThemedText>
-        ) :  ( answered &&
+        ) :  ( (answered) &&
           <ThemedText style={styles.textStyle} centered>
             {' '}
             Incorrecto! 😞
           </ThemedText>
         )}
-        <Pressable style={[styles.contestarButton]} onPress={endpointCalled ? answerQuestion : handleNextQuestionWrapper}>
+        <Pressable style={[styles.contestarButton]} onPress={readyForNextQuestion ? handleNextQuestionWrapper : answerQuestion}>
           <ThemedText style={styles.textStyle} centered>
             {' '}
-            {endpointCalled ? 'Siguiente' : 'Contestar'}
+            {readyForNextQuestion ? 'Siguiente' : 'Contestar'}
           </ThemedText>
         </Pressable>
         <Pressable style={[styles.button]} onPress={handleChatVisibility}>
