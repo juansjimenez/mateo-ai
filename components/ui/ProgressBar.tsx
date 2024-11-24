@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import React, { PropsWithChildren } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -8,42 +8,37 @@ export enum size {
 }
 const styles = StyleSheet.create({
   progressContainer: {
-    position: 'relative',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    display: 'flex',
+    justifyContent: 'flex-end',
     width: '100%',
     borderRadius: 5,
-    borderColor: 'grey',
-    borderWidth: 1,
-    backgroundColor: '#ecedec',
+    backgroundColor: 'white',
+    alignItems: 'center', 
   },
-
-  progressBar: {
-    width: '20%',
-    backgroundColor: '#93c47d',
-    borderTopLeftRadius: 5,
-    borderBottomLeftRadius: 5,
+  numerito: {
+    fontSize: 10,
+    alignSelf: 'flex-end',
   },
   progress: {
     left: 0,
     right: 0,
     top: 0,
+    paddingLeft: 8,
+    paddingRight: 8,
     backgroundColor: '#d6facf',
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
-    width: '20%',
-    position: 'absolute'
-
+    position: 'absolute',
+    marginRight: 10,
   },
 });
 
 type Props = PropsWithChildren<{
   barsize: size;
+  percentage: number;
 }>;
 
-export function ProgressBar({ barsize }: Props) {
+export function ProgressBar({ barsize, percentage }: Props) {
   return (
     <View
       className="flex flex-row pb-10"
@@ -52,10 +47,11 @@ export function ProgressBar({ barsize }: Props) {
       <LinearGradient
           className="rounded-lg"
           colors={['#38FA18', 'transparent']}
-          style={[styles.progress, { height: barsize-2 }]}
+          style={[styles.progress, { height: barsize-2, width: `${percentage}%` }]}
           start={[0, 1]}
           end={[1, 0]}
         />
+      <Text style={styles.numerito}>{`${Number(percentage)} %`}</Text>
     </View>
   );
 }

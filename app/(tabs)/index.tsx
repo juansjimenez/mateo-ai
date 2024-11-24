@@ -12,11 +12,18 @@ import React from 'react';
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
     <View style={styles.asignaturaContainer}>
-        {/* <ProgressBar barsize={size.small} /> */}
+        
         <Image style={styles.stretch} source={source} />
         <Text style={styles.asignaturaTitle}>{title}</Text>
+        <View style={styles.barContainer}>
+        <ProgressBar barsize={size.small} percentage={80} />
+        </View>
     </View>
   );
+}
+
+function MainContainer({ children }: { children: React.ReactNode }) {
+  return <View style={styles.mainContainer}>{children}</View>;
 }
 
 function Header(title: string) {
@@ -91,7 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     top: 20,
-    
   },
   asignaturaContainer: {
     flexDirection: 'column',
@@ -99,6 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     boxShadow: '2px 2px 2px 1px rgba(0, 0, 0, 0.2)',
+    // gap: 10
   },
   stretch: {
     width: '100%',
@@ -108,6 +115,9 @@ const styles = StyleSheet.create({
   },
   asignaturaTitle: {
     fontSize: 25,
+    padding: 8,
+  },
+  barContainer: {
     padding: 8,
   },
   text: {
@@ -130,4 +140,4 @@ const styles = StyleSheet.create({
 });
 
 
-export { Header }
+export { Header, MainContainer }

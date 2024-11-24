@@ -4,6 +4,7 @@ import { ThemedView } from '@/components/ThemedView';
 import { TextInput } from 'react-native-paper';
 import { useState } from 'react';
 import Server from '@/server/server';
+import { Header, MainContainer } from './';
 
 interface Preference {
   category: string;
@@ -67,7 +68,8 @@ export default function PreferenceScreen() {
   };
 
   return (
-    <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>
+    <MainContainer>
+      {Header('Preferencias')}
       <ThemedView style={styles.mainContainer} darkColor="black">
         <ThemedText type="defaultSemiBold" darkColor="black">
           Ingresa tu nombre
@@ -111,7 +113,7 @@ export default function PreferenceScreen() {
           </ThemedText>
         </Pressable>
       </ThemedView>
-    </ScrollView>
+    </MainContainer>
   );
 }
 
