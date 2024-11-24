@@ -60,12 +60,10 @@ export default function PreferenceScreen() {
       if (interest.selected)
         selectedInterests.push({ category: interest.text, value: interest.text });
     });
-
-    const r = await Server.post('/profiles', {
+    await Server.post('/profiles', {
       name: preferences.name,
       preferences: selectedInterests,
     });
-    console.log('response', r);
   };
 
   return (
