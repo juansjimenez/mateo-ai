@@ -61,9 +61,11 @@ const modules: modulesStruct[] = [
 
 function BuildModule(module: modulesStruct){
   return(
+    <Pressable style={{width:'95%' }}>
     <View style={styles.subjectItem}>
             {moduleCard(module.image, module.name)}
     </View>
+    </Pressable>
   )
 }
 
