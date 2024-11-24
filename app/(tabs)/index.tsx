@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
     gap: 0,
     padding: 20,
     paddingTop: 20,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    height: '100%',
   },
   titleContainer: {
     flex: 1,

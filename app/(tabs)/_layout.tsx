@@ -54,6 +54,15 @@ export default function TabLayout() {
           ),
         }}
       />
+        <Tabs.Screen
+        name="task"
+        options={{
+          title: 'task',
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="chart" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
