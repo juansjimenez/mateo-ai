@@ -119,48 +119,55 @@ export default function Task({ subjectId, unitId }: Props) {
   return (
     <MainContainer>
       {Header('Ejercicio')}
-      {isLoading ? <ActivityIndicator size="large" color="#00ff00" /> :
-      (
-      <ScrollView>
-        <AssignmentCard taskStatement={actualQuestion.statement} />
-        <AlternativeSelection
-          alternatives={actualQuestion.alternatives}
-          onCheckedChange={onCheckedChange}
-          isDisabled={answered}
-        />
-        <View style={styles.space} />
-        {(answered && isCorrect) ? (
+      {isLoading ? (
+        <View>
+          <ActivityIndicator size="large" color="#00ff00" />
           <ThemedText style={styles.textStyle} centered>
             {' '}
-            Correcto! 🎉
+            Generando preguntas en base a intereses...
           </ThemedText>
-        ) :  ( (answered) &&
-          <ThemedText style={styles.textStyle} centered>
-            {' '}
-            Incorrecto! 😞
-          </ThemedText>
-        )}
-        <Pressable style={[styles.contestarButton]} onPress={readyForNextQuestion ? handleNextQuestionWrapper : answerQuestion}>
-          <ThemedText style={styles.textStyle} centered>
-            {' '}
-            {readyForNextQuestion ? 'Siguiente' : 'Contestar'}
-          </ThemedText>
-        </Pressable>
-        <Pressable style={[styles.button]} onPress={handleChatVisibility}>
-          <ThemedText style={styles.textStyle} centered>
-            {' '}
-            💬 Ayuda
-          </ThemedText>
-        </Pressable>
-        <ChatModal
-          chatVisibility={chatVisibility}
-          setChatVisibility={setChatVisibility}
-          actualQuestionId={actualQuestion.identifier}
-        />
-      </ScrollView>
+        </View>
+      ) :
+        (
+          <ScrollView>
+            <AssignmentCard taskStatement={actualQuestion.statement} />
+            <AlternativeSelection
+              alternatives={actualQuestion.alternatives}
+              onCheckedChange={onCheckedChange}
+            />
+            <View style={styles.space} />
+            {(answered && isCorrect) ? (
+              <ThemedText style={styles.textStyle} centered>
+                {' '}
+                Correcto! 🎉
+              </ThemedText>
+            ) : ((answered) &&
+              <ThemedText style={styles.textStyle} centered>
+                {' '}
+                Incorrecto! 😞
+              </ThemedText>
+            )}
+            <Pressable style={[styles.contestarButton]} onPress={readyForNextQuestion ? handleNextQuestionWrapper : answerQuestion}>
+              <ThemedText style={styles.textStyle} centered>
+                {' '}
+                {readyForNextQuestion ? 'Siguiente' : 'Contestar'}
+              </ThemedText>
+            </Pressable>
+            <Pressable style={[styles.button]} onPress={handleChatVisibility}>
+              <ThemedText style={styles.textStyle} centered>
+                {' '}
+                💬 Ayuda
+              </ThemedText>
+            </Pressable>
+            <ChatModal
+              chatVisibility={chatVisibility}
+              setChatVisibility={setChatVisibility}
+              actualQuestionId={actualQuestion.identifier}
+            />
+          </ScrollView>
 
-      )
-    }
+        )
+      }
 
     </MainContainer>
   );
