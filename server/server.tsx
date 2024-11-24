@@ -1,5 +1,5 @@
 //import Config from 'react-native-config'
-const serverIP = '';
+const serverIP = 'http://mateo-service-4-env.eba-j5mgjx2f.us-east-1.elasticbeanstalk.com';
 
 const get = async (url: string) => {
   try {
