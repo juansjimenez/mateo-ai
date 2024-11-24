@@ -1,15 +1,15 @@
-import {Svg, Polygon } from 'react-native-svg'
+import { Svg, Polygon } from 'react-native-svg';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
 
-import {RadarChart} from '@salmonco/react-native-radar-chart';
+import { RadarChart } from '@salmonco/react-native-radar-chart';
 
 const spiderChart = () => {
   const data = [
-    {label: 'Números', value: 30},
-    {label: 'Álgebra', value: 55},
-    {label: 'Geometría', value: 70},
-    {label: 'Probabilidad', value: 35},
+    { label: 'Números', value: 30 },
+    { label: 'Álgebra', value: 55 },
+    { label: 'Geometría', value: 70 },
+    { label: 'Probabilidad', value: 35 },
   ];
 
   return (
@@ -36,83 +36,79 @@ const spiderChart = () => {
   );
 };
 
-function Hexagon(){
-    return(
-        
-        <Svg height="300" width="300" >
-                <Polygon
-                  points="00,150 225,280 75,280 0,150 75,20 225,20 300,150 225,280"
-                  stroke="black"
-                  fill="white"
-                  strokeWidth="1"
-                >
-                </Polygon>
-        </Svg>
-    )
+function Hexagon() {
+  return (
+    <Svg height="300" width="300">
+      <Polygon
+        points="00,150 225,280 75,280 0,150 75,20 225,20 300,150 225,280"
+        stroke="black"
+        fill="white"
+        strokeWidth="1"
+      ></Polygon>
+    </Svg>
+  );
 }
 type strength = {
-    name: string
-    points: number
-}
-const dummyStrength : strength[] = [{
+  name: string;
+  points: number;
+};
+const dummyStrength: strength[] = [
+  {
     name: 'Dummy Name',
-    points: 2
-},
-{
+    points: 2,
+  },
+  {
     name: 'Dummy Name',
-    points: 3
-},
-{
+    points: 3,
+  },
+  {
     name: 'Dummy Name',
-    points: 4
-}]
+    points: 4,
+  },
+];
 
-function strengthView(points: number, name: string){
-    return(
-        <View style={[styles.statContainer]}>
-            <View style={[styles.statRow, { width: 100* points } ]}>
-                {name}
-            </View>
-        </View>
-
-    )
+function strengthView(points: number, name: string) {
+  return (
+    <View style={[styles.statContainer]}>
+      <View style={[styles.statRow, { width: 100 * points }]}>{name}</View>
+    </View>
+  );
 }
 function listOfStregths() {
-    const [strengths, listOfStregth] = useState(dummyStrength);
-    let stregthsView = []
-    for(let strengthIdx in strengths){
-        const strength = strengths[strengthIdx]
-        stregthsView.push(strengthView(strength.points, strength.name))
-    }
-    return stregthsView
+  const [strengths, listOfStregth] = useState(dummyStrength);
+  let stregthsView = [];
+  for (let strengthIdx in strengths) {
+    const strength = strengths[strengthIdx];
+    stregthsView.push(strengthView(strength.points, strength.name));
+  }
+  return stregthsView;
 }
-export default function userStats(){
-    return(
-        <View>
-            {spiderChart()}
-            {listOfStregths()}
-        </View>
-    )
+export default function userStats() {
+  return (
+    <View>
+      {spiderChart()}
+      {listOfStregths()}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-      statRow: {
-        alignContent: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'green',
-        borderRadius: 5,
-        paddingTop: 5,
-        paddingBottom: 5,
-        marginTop: 5,
-        flexDirection: 'row'
-      },
-      statContainer: {
-        width: '100%'
-      },
-      container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      
-    })
+  statRow: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'green',
+    borderRadius: 5,
+    paddingTop: 5,
+    paddingBottom: 5,
+    marginTop: 5,
+    flexDirection: 'row',
+  },
+  statContainer: {
+    width: '100%',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

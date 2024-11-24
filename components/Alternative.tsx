@@ -19,7 +19,10 @@ interface AlternativeSelectionProps {
   onCheckedChange: (checked: string) => void;
 }
 
-const AlternativeSelection: React.FC<AlternativeSelectionProps> = ({ alternatives, onCheckedChange }) => {
+const AlternativeSelection: React.FC<AlternativeSelectionProps> = ({
+  alternatives,
+  onCheckedChange,
+}) => {
   const [checked, setChecked] = React.useState('first');
 
   const handlePress = (id: string) => {
