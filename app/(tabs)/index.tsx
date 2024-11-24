@@ -8,13 +8,13 @@ import {
   Pressable,
 } from 'react-native';
 import { ProgressBar, size } from '@/components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { allSubjects } from '@/assets/all-subjects';
 import Contents from '@/components/content';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
-    <View style={styles.asignaturaContainer}>
+    <View style={styles.asignaturaContainer} key={title}>
       <Image style={styles.stretch} source={source} />
       <Text style={styles.asignaturaTitle}>{title}</Text>
       <View style={styles.barContainer}>
@@ -45,39 +45,50 @@ type modulesStruct = {
   units: { unitId: string }[];
 };
 
-function BuildModule(module: modulesStruct, handleChatVisibility: () => void) {
+function BuildModule(module: modulesStruct, handleChatVisibility: (contentsIds: string[], subjectId: string) => void) {
   return (
-    <Pressable key={module.subjectId} style={{ width: '95%' }}  onPress={handleChatVisibility}>
+    <Pressable key={module.subjectId} style={{ width: '95%' }}  onPress={() => handleChatVisibility(module.units.map(s => s.unitId), module.subjectId)}>
       <View style={styles.subjectItem}>{moduleCard(module.image, module.subjectId)}</View>
     </Pressable>
   );
 }
 
-function listOfModules(handleChatVisibility: () => void) {
+function listOfModules(setContents: (contentsIds: string[], subjectId: string) => void) {
   let modulesView = [];
   for (let moduleIdx in allSubjects) {
     const module = allSubjects[moduleIdx];
-    modulesView.push(BuildModule(module,handleChatVisibility));
+    modulesView.push(BuildModule(module, setContents));
   }
   return modulesView;
 }
 
 function LandingDashboard() {
-  const [unitVisibility, setUnitVisibility] = useState(true);
+  const [showUnits, setShowUnits] = useState(true);
+  const [contents, setContents] = useState([] as string[]);
+  const [currentSubject, setCurrentSubject] = useState('');
 
-  const handleChatVisibility = () => {
-    setUnitVisibility(!unitVisibility);
+  const handleChatVisibility = (contentsIds: string[], subjectId: string) => {
+    setShowUnits(!showUnits);
+    console.log(contentsIds);
+    setContents(contentsIds);
+    setCurrentSubject(subjectId);
   };
+
+  useEffect(() => {
+    setShowUnits(true);
+    setContents([]);
+    setCurrentSubject('');
+  }, []);
 
   return (
     <View>
-      {unitVisibility ? (
+      {showUnits ? (
         <View style={styles.mainContainer}>
           {Header('Unidades')}
           <View style={styles.subjects}>{listOfModules(handleChatVisibility)}</View>
         </View>
       ) : (
-        <Contents />
+        <Contents contents={contents} subjectId={currentSubject} />
       )}
     </View>
   );

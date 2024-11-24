@@ -8,9 +8,9 @@ import { Header, MainContainer } from '@/app/(tabs)';
 import Server from '@/server/server';
 
 type Props = PropsWithChildren<{
-  placeholderImageSource: ImageSourcePropType | undefined;
-  taskStatement: string;
   handleNextQuestion: () => void;
+  subjectId: string;
+  unitId: string;
 }>;
 
 interface Alternative {
@@ -25,7 +25,7 @@ interface Question {
   alternatives: Alternative[];
 }
 
-export default function Task({ handleNextQuestion }: Props) {
+export default function Task({ handleNextQuestion, subjectId, unitId }: Props) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [endpointCalled, setEndpointCalled] = useState(false);
   const [chatVisibility, setChatVisibility] = useState(false);
@@ -56,8 +56,8 @@ export default function Task({ handleNextQuestion }: Props) {
     const getQuestion = async () => {
       const response = await Server.post('/personalized-exercises/personalize', {
         profileIdentifier: 'ee654115-aa6a-4710-902f-73813ca55bd6',
-        subjectIdentifier: 'Números',
-        unitIdentifier: 'Matemática financiera',
+        subjectIdentifier:  subjectId,
+        unitIdentifier: unitId,
       });
       console.log('responsseeeee,', response);
       if (response && response.message && response.message.length > 0) {

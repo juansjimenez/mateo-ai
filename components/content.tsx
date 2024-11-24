@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { ProgressBar, size } from '@/components';
-import React, { useState } from 'react';
+import React from 'react';
+import Task from '@/components/task';
 import { Header, MainContainer } from '@/app/(tabs)';
 
-function Content(title: string) {
+function Content({ title }: { title: string }) {
   return (
     <View style={styles.asignaturaContainer} key={title}>
       <Text style={styles.asignaturaTitle}>{title}</Text>
@@ -14,18 +15,21 @@ function Content(title: string) {
   );
 }
 
-export default function Contents() {
-  const [contents, setContent] = useState(['This is the content', 'Content-b']);
+export default function Contents({ contents, subjectId }: { contents: string[], subjectId: string }) {
+  const [showQuestion, setShowQuestion] = React.useState(false);
+  const [unitId, setUnitId] = React.useState('');
 
-  let contentsView = [];
-  for (let contentIdx in contents) {
-    let content = contents[contentIdx];
-    contentsView.push(Content(content));
-  }
   return (
+    showQuestion ? <Task handleNextQuestion={() => setShowQuestion(false)} subjectId={subjectId} unitId={unitId} /> :
     <MainContainer>
       {Header('Contenidos')}
-      <View style={styles.contenidosContainer}>{contentsView}</View>
+      <View style={styles.contenidosContainer}>
+        {contents.map((content) => (
+          <Pressable key={content} onPress={() => {setShowQuestion(true); setUnitId(content);}}>
+            <Content key={content} title={content} />
+          </Pressable>
+        ))}
+      </View>
     </MainContainer>
   );
 }
