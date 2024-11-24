@@ -37,7 +37,7 @@ profileRouter.post('/:identifier?', async (req, res) => {
     body, 
     params
   } = req;
-  const identifier = params.identifier || uuid();
+  const identifier = params?.identifier || uuid();
 
   const db = await getMongoConnection();
   const upsertedProfile = await upsert(db, 'profiles', body as Profile, { identifier });

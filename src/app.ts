@@ -36,7 +36,7 @@ app.use("/personalized-exercises", personalizedExerciseRouter);
 app.use("/subjects", subjectRouter);
 
 app.get("/health", (req, res) => {
-  res.status(200).send("OK PATOAPATOPOAPOT");
+  res.status(200).send("OK");
 });
 
 io.on("connection", (socket) => {
