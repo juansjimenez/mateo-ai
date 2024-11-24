@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { ProgressBar, size } from '@/components';
 import React, { useState } from 'react';
+import { allSubjects } from '@/assets/all-subjects';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
@@ -39,39 +40,22 @@ function Header(title: string) {
 }
 type modulesStruct = {
   image: NodeRequire;
-  name: string;
+  subjectId: string;
+  units: { unitId: string }[];
 };
-const modules: modulesStruct[] = [
-  {
-    image: require('../../assets/images/math-subjects/numeros.png'),
-    name: 'Números',
-  },
-  {
-    image: require('../../assets/images/math-subjects/algebra.png'),
-    name: 'Álgebra',
-  },
-  {
-    image: require('../../assets/images/math-subjects/geometry.png'),
-    name: 'Geometría',
-  },
-  {
-    image: require('../../assets/images/math-subjects/probabilidad.png'),
-    name: 'Probabilidad',
-  },
-];
 
 function BuildModule(module: modulesStruct) {
   return (
-    <Pressable key={module.name} style={{ width: '95%' }}>
-      <View style={styles.subjectItem}>{moduleCard(module.image, module.name)}</View>
+    <Pressable key={module.subjectId} style={{ width: '95%' }}>
+      <View style={styles.subjectItem}>{moduleCard(module.image, module.subjectId)}</View>
     </Pressable>
   );
 }
 
 function listOfModules() {
   let modulesView = [];
-  for (let moduleIdx in modules) {
-    const module = modules[moduleIdx];
+  for (let moduleIdx in allSubjects) {
+    const module = allSubjects[moduleIdx];
     modulesView.push(BuildModule(module));
   }
   return modulesView;
