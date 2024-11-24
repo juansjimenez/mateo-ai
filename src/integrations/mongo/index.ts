@@ -5,7 +5,9 @@ async function get(db: any, collectionName: string, filter: object) {
   return document;
 }
 
-async function getAll(db: any, collectionName: string, filter: object = {}) {
+async function getAll(
+  db: any, collectionName: string, filter: object = {},
+) {
   const document = await db!.collection(collectionName).find(filter).toArray();
   return document;
 }

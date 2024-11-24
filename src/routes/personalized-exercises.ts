@@ -64,6 +64,10 @@ personalizedExerciseRouter.post('/personalize', async (req, res) => {
     preferences: profile.preferences,
   })
 
+  console.log({
+    personalizedExercises,
+  })
+
   await insertMany(db, 'personalized-exercises', personalizedExercises);
 
   await disconnect();

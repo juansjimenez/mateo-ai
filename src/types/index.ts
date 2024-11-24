@@ -8,6 +8,7 @@ interface Alternative {
 }
 
 interface Exercise {
+  _id?: string;
   identifier: string;
   statement: string;
   alternatives: Alternative[];

@@ -21,6 +21,11 @@ export async function personalizeExercises({
 
     const personalizedStatement = await askChatGPT(prompt);
 
+    if (exercise._id) {
+      delete exercise._id;
+    }
+
+
     return {
       ...exercise, 
       identifier: uuid(),
