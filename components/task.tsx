@@ -10,6 +10,7 @@ import Server from '@/server/server';
 type Props = PropsWithChildren<{
   subjectId: string;
   unitId: string;
+  resetLanding: () => void;
 }>;
 
 interface Alternative {
@@ -24,7 +25,7 @@ interface Question {
   alternatives: Alternative[];
 }
 
-export default function Task({ subjectId, unitId }: Props) {
+export default function Task({ subjectId, unitId, resetLanding }: Props) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [readyForNextQuestion, setreadyForNextQuestion] = useState(false);
   const [chatVisibility, setChatVisibility] = useState(false);
@@ -81,11 +82,9 @@ export default function Task({ subjectId, unitId }: Props) {
       setActualQuestion(allQuestions[actualQuestionIndex + 1]);
       setActualQuestionIndex(actualQuestionIndex + 1);
     } else {
-      showStats();
+      resetLanding();
     }
   }
-
-  function showStats() { }
 
   async function answerQuestion() {
     setAnswered(true);

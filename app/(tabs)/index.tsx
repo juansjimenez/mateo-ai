@@ -74,11 +74,11 @@ function LandingDashboard() {
     setCurrentSubject(subjectId);
   };
 
-  useEffect(() => {
+  const resetLanding = (() => {
     setShowUnits(true);
     setContents([]);
     setCurrentSubject('');
-  }, []);
+  });
 
   return (
     <View>
@@ -88,7 +88,7 @@ function LandingDashboard() {
           <View style={styles.subjects}>{listOfModules(handleChatVisibility)}</View>
         </View>
       ) : (
-        <Contents contents={contents} subjectId={currentSubject} />
+        <Contents contents={contents} subjectId={currentSubject} resetLanding={resetLanding} />
       )}
     </View>
   );

@@ -15,12 +15,12 @@ function Content({ title }: { title: string }) {
   );
 }
 
-export default function Contents({ contents, subjectId }: { contents: string[], subjectId: string }) {
+export default function Contents({ contents, subjectId, resetLanding }: { contents: string[], subjectId: string, resetLanding: () => void }) {
   const [showQuestion, setShowQuestion] = React.useState(false);
   const [unitId, setUnitId] = React.useState('');
 
   return (
-    showQuestion ? <Task handleNextQuestion={() => setShowQuestion(false)} subjectId={subjectId} unitId={unitId} /> :
+    showQuestion ? <Task resetLanding={resetLanding} subjectId={subjectId} unitId={unitId} /> :
     <MainContainer>
       {Header('Contenidos')}
       <View style={styles.contenidosContainer}>
