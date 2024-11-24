@@ -5,9 +5,10 @@ import {
   View,
   Image,
   ScrollView,
+  Pressable
 } from 'react-native';
-import { ProgressBar, size } from '@/components';
-import React from 'react';
+import { ProgressBar, size, Units } from '@/components';
+import React, { useState } from 'react';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
@@ -36,13 +37,22 @@ function Header(title: string) {
 }
 
 function LandingDashboard() {
+  const [unitVisibility, setUnitVisibility] = useState(false);
+
+  const handleChatVisibility = () => {
+    setUnitVisibility(!unitVisibility);
+  };
+
   return (
     <View style={styles.mainContainer}>
       {Header('Asignaturas')}
       <View style={styles.subjects}>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/numeros.png'), 'Números')}
-        </View>
+      <Pressable onPress={handleChatVisibility}>
+
+          <View style={styles.subjectItem}>
+            {moduleCard(require('../../assets/images/math-subjects/numeros.png'), 'Números')}
+          </View>
+        </Pressable>
         <View style={styles.subjectItem}>
           {moduleCard(require('../../assets/images/math-subjects/algebra.png'), 'Álgebra')}
         </View>
