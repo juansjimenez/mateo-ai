@@ -16,6 +16,29 @@ export default function Task() {
   const [actualQuestion, setActualQuestion] = useState(
     'b6611aa2-ad26-4236-a077-00cf1d5b4002',
   );
+  const [selectedAlternative, setSelectedAlternative] = useState('');
+  const [alternatives, setAlternatives] = useState([
+    {
+      id: '1',
+      text: '1/2',
+    },
+    {
+      id: '2',
+      text: '10/26',
+    },
+    {
+      id: '3',
+      text: '1/3',
+    },
+    {
+      id: '4',
+      text: '2/9',
+    },
+  ]);
+  const onCheckedChange = (checked: string) => {
+    setSelectedAlternative(checked);
+  }
+
   const handleChatVisibility = () => {
     setChatVisibility(!chatVisibility);
   };
@@ -26,7 +49,7 @@ export default function Task() {
       <AssignmentCard
         taskStatement={loremImpsum}
       />
-      <AlternativeSelection />
+      <AlternativeSelection alternatives={alternatives} onCheckedChange={onCheckedChange} />
       <View style={styles.space} />
       <Pressable style={[styles.contestarButton]} onPress={handleChatVisibility}>
         <ThemedText style={styles.textStyle} centered> Contestar</ThemedText>
