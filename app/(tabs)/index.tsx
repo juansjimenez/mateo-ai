@@ -86,7 +86,7 @@ function LandingDashboard() {
 
   return (
     <View style={styles.mainContainer}>
-      {Header('Asignaturas')}
+      {Header('Unidades')}
       <View style={styles.subjects}>{listOfModules()}</View>
     </View>
   );
