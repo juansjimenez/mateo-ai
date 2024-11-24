@@ -63,7 +63,7 @@ function ChatModal({
         <ScrollView style={styles.chatList}>
           <FlatList
             data={messages}
-            renderItem={({ item }) => <ChatMessage message={item} />}
+            renderItem={({ item, index }) => <ChatMessage message={item} key={index} />}
           />
           {loading && <ChatMessage message={{ text: '...', origin: 'bot' }} />}
         </ScrollView>
