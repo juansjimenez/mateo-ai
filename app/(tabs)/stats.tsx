@@ -1,6 +1,8 @@
 import {Svg, Polygon } from 'react-native-svg'
 import { View, Text, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
+import { stringify } from 'querystring';
+
 
 function Hexagon(){
     return(
@@ -25,10 +27,10 @@ const dummyStrength : strength = {
     points: 2
 }
 
-function strengthView(){
+function strengthView(points: number, name: string){
     return(
-        <View>
-            hi
+        <View style={[style.statContainer, { width: 100* points } ]}>
+            {name}
         </View>
 
     )
@@ -38,7 +40,7 @@ function listOfStregths() {
     let stregthsView = []
     for(let strengthIdx in strengths){
         const strength = strengths[strengthIdx]
-        stregthsView.push(strengthView())
+        stregthsView.push(strengthView(strength.points, strength.name))
     }
     return stregthsView
 }
@@ -49,3 +51,16 @@ export default function userStats(){
         </View>
     )
 }
+
+const style = StyleSheet.create({
+      statContainer: {
+        alignContent: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'green',
+        borderRadius: 5,
+        paddingTop: 5,
+        paddingBottom: 5,
+        marginTop: 5,
+        flexDirection: 'row'
+      }
+    })
