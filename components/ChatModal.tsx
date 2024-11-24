@@ -46,6 +46,7 @@ function ChatModal({
           {
             text: response.message.solutionExplanation,
             origin: 'bot',
+            isMarkdown: true,
           },
         ]);
         setCurrentOptions(['Siguiente pregunta']);

@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import MarkdownView from './Markdown';
 
 export interface MessageInput {
   text: string;
   origin: string;
+  isMarkdown?: boolean;
 }
 
 interface ChatMessageProps {
@@ -18,7 +20,11 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
       style={[styles.messageContainer, isUser ? styles.alignRight : styles.alignLeft]}
     >
       <View style={[styles.messageBubble, isUser ? styles.userBubble : styles.botBubble]}>
-        <Text style={styles.messageText}>{message.text}</Text>
+        {message.isMarkdown ? (
+          <MarkdownView taskStatement={message.text} fontColor="white" fontSize="12" />
+        ) : (
+          <Text style={styles.messageText}>{message.text}</Text>
+        )}
       </View>
     </View>
   );
