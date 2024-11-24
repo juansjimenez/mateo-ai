@@ -23,7 +23,7 @@ function moduleCard(source: ImageSourcePropType | undefined, title: string) {
 }
 
 function MainContainer({ children }: { children: React.ReactNode }) {
-  return <View style={styles.mainContainer}>{children}</View>;
+  return <ScrollView style={styles.mainContainer}>{children}</ScrollView>;
 }
 
 function Header(title: string) {
