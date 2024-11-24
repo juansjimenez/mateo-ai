@@ -1,8 +1,8 @@
-import { ImageSourcePropType, Text, StyleSheet, Theme, View } from 'react-native';
+import { ImageSourcePropType, StyleSheet, Theme, View } from 'react-native';
 import { Card, useTheme } from 'react-native-paper';
 import { ProgressBar, size } from '@/components';
 import React, { PropsWithChildren } from 'react';
-import Markdown from 'react-native-markdown-display';
+import MarkdownView from './Markdown';
 
 type Props = PropsWithChildren<{
   placeholderImageSource?: ImageSourcePropType;
@@ -29,7 +29,7 @@ export default function AssignmentCard({
       <Card.Title title={cardTitle} />
       {taskStatement && (
         <Card.Content>
-          <Markdown style={styles.markdown}>{taskStatement}</Markdown>
+          <MarkdownView taskStatement={taskStatement} />
         </Card.Content>
       )}
       <View style={styles.buttonContainer}>{children}</View>
@@ -50,22 +50,6 @@ const makeStyles = (theme: Theme) => {
     },
     exerciseimage: {
       boxSizing: 'fit',
-    },
-    markdown: {
-      body: {
-        fontSize: 16,
-        lineHeight: 24,
-      },
-      heading1: {
-        fontSize: 24,
-        marginBottom: 10,
-      },
-      code: {
-        fontSize: 14,
-        backgroundColor: '#f4f4f4',
-        padding: 5,
-        borderRadius: 4,
-      },
     },
   });
 };
