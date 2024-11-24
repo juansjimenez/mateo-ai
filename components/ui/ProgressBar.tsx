@@ -1,5 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import React, { PropsWithChildren } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export enum size {
   small = 10,
@@ -25,6 +26,17 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderBottomLeftRadius: 5,
   },
+  progress: {
+    left: 0,
+    right: 0,
+    top: 0,
+    backgroundColor: '#d6facf',
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    width: '20%',
+    position: 'absolute'
+
+  },
 });
 
 type Props = PropsWithChildren<{
@@ -37,10 +49,13 @@ export function ProgressBar({ barsize }: Props) {
       className="flex flex-row pb-10"
       style={[styles.progressContainer, { height: barsize }]}
     >
-      <View
-        className="rounded-lg"
-        style={[styles.progressBar, , { height: barsize - 2 }]}
-      />
+      <LinearGradient
+          className="rounded-lg"
+          colors={['#38FA18', 'transparent']}
+          style={[styles.progress, { height: barsize-2 }]}
+          start={[0, 1]}
+          end={[1, 0]}
+        />
     </View>
   );
 }

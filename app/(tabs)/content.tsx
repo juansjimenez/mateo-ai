@@ -26,15 +26,6 @@ export default function MakeContents() {
 }
 const makeStyles = (theme: Theme) => {
   return StyleSheet.create({
-    titleContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 8,
-    },
-    stepContainer: {
-      gap: 8,
-      marginBottom: 8,
-    },
     buttonContainer: {
       alignContent: 'center',
       justifyContent: 'center',
