@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { ProgressBar, size } from '@/components';
 import React, { useState } from 'react';
+import { allSubjects } from '@/assets/all-subjects';
+import Contents from '@/components/content';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
@@ -23,7 +25,7 @@ function moduleCard(source: ImageSourcePropType | undefined, title: string) {
 }
 
 function MainContainer({ children }: { children: React.ReactNode }) {
-  return <View style={styles.mainContainer}>{children}</View>;
+  return <ScrollView style={styles.mainContainer}>{children}</ScrollView>;
 }
 
 function Header(title: string) {
@@ -39,55 +41,44 @@ function Header(title: string) {
 }
 type modulesStruct = {
   image: NodeRequire;
-  name: string;
+  subjectId: string;
+  units: { unitId: string }[];
 };
-const modules: modulesStruct[] = [
-  {
-    image: require('../../assets/images/math-subjects/numeros.png'),
-    name: 'Números',
-  },
-  {
-    image: require('../../assets/images/math-subjects/algebra.png'),
-    name: 'Álgebra',
-  },
-  {
-    image: require('../../assets/images/math-subjects/geometry.png'),
-    name: 'Geometría',
-  },
-  {
-    image: require('../../assets/images/math-subjects/probabilidad.png'),
-    name: 'Probabilidad',
-  },
-];
 
-function BuildModule(module: modulesStruct) {
+function BuildModule(module: modulesStruct, handleChatVisibility: () => void) {
   return (
-    <Pressable style={{ width: '95%' }}>
-      <View style={styles.subjectItem}>{moduleCard(module.image, module.name)}</View>
+    <Pressable key={module.subjectId} style={{ width: '95%' }}  onPress={handleChatVisibility}>
+      <View style={styles.subjectItem}>{moduleCard(module.image, module.subjectId)}</View>
     </Pressable>
   );
 }
 
-function listOfModules() {
+function listOfModules(handleChatVisibility: () => void) {
   let modulesView = [];
-  for (let moduleIdx in modules) {
-    const module = modules[moduleIdx];
-    modulesView.push(BuildModule(module));
+  for (let moduleIdx in allSubjects) {
+    const module = allSubjects[moduleIdx];
+    modulesView.push(BuildModule(module,handleChatVisibility));
   }
   return modulesView;
 }
 
 function LandingDashboard() {
-  const [unitVisibility, setUnitVisibility] = useState(false);
+  const [unitVisibility, setUnitVisibility] = useState(true);
 
   const handleChatVisibility = () => {
     setUnitVisibility(!unitVisibility);
   };
 
   return (
-    <View style={styles.mainContainer}>
-      {Header('Unidades')}
-      <View style={styles.subjects}>{listOfModules()}</View>
+    <View>
+      {unitVisibility ? (
+        <View style={styles.mainContainer}>
+          {Header('Unidades')}
+          <View style={styles.subjects}>{listOfModules(handleChatVisibility)}</View>
+        </View>
+      ) : (
+        <Contents />
+      )}
     </View>
   );
 }

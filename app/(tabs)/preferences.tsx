@@ -1,4 +1,4 @@
-import { StyleSheet, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { TextInput } from 'react-native-paper';
@@ -11,45 +11,43 @@ interface Preference {
   value: string;
 }
 
-interface SavePreferenceInputReq {
-  name: string;
-  preferences: Preference[];
-}
+const initialPreferences = [
+  {
+    icon: '🎹',
+    text: 'Música',
+    id: 1,
+    selected: false,
+  },
+  {
+    icon: '🎬',
+    text: 'Peliculas',
+    id: 2,
+    selected: false,
+  },
+  {
+    icon: '⚽',
+    text: 'Deporte',
+    id: 3,
+    selected: false,
+  },
+  {
+    icon: '🎨',
+    text: 'Arte',
+    id: 4,
+    selected: false,
+  },
+];
 
 export default function PreferenceScreen() {
-  const initialPreferences = [
-    {
-      icon: '🎹',
-      text: 'Música',
-      id: 1,
-      selected: false,
-    },
-    {
-      icon: '🎬',
-      text: 'Peliculas',
-      id: 2,
-      selected: false,
-    },
-    {
-      icon: '⚽',
-      text: 'Deporte',
-      id: 3,
-      selected: false,
-    },
-    {
-      icon: '🎨',
-      text: 'Arte',
-      id: 4,
-      selected: false,
-    },
-  ];
-
   const [preferences, setPreferences] = useState({
     name: '',
     interests: initialPreferences,
   });
 
+  const [buttonText, setButtonText] = useState('Guardar');
+
   const updateInterest = (index: number) => {
+    setButtonText('Guardar');
     const copy = [...preferences.interests];
     copy[index].selected = !preferences.interests[index].selected;
     setPreferences({ name: preferences.name, interests: copy });
@@ -61,10 +59,12 @@ export default function PreferenceScreen() {
       if (interest.selected)
         selectedInterests.push({ category: interest.text, value: interest.text });
     });
+    setButtonText('Guardando...');
     await Server.post('/profiles', {
       name: preferences.name,
       preferences: selectedInterests,
     });
+    setButtonText('Guardado!');
   };
 
   return (
@@ -108,8 +108,8 @@ export default function PreferenceScreen() {
           ))}
         </ThemedView>
         <Pressable style={styles.sendButton}>
-          <ThemedText type="defaultSemiBold" onPress={savePreferences} centered>
-            Guardar
+          <ThemedText type="defaultSemiBold" onPress={savePreferences}>
+            {buttonText}
           </ThemedText>
         </Pressable>
       </ThemedView>

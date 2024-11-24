@@ -33,19 +33,20 @@ function ChatModal({
         },
       ]);
       setLoading(true);
-      // Todo, use react hooks for this
-      const response = await server.get(`/personalized-exercises/${actualQuestionId}`);
+      const response = await server.get(
+        `/personalized-exercises/solution-explanation/${actualQuestionId}`,
+      );
       new Promise((resolve) =>
         setTimeout(() => {
           resolve('result');
         }, 3000),
       );
       setLoading(false);
-      if (response && response.message && response.message.solutionExplanation) {
+      if (response && response.message) {
         setMessages((prev) => [
           ...prev,
           {
-            text: response.message.solutionExplanation,
+            text: response.message,
             origin: 'bot',
             isMarkdown: true,
           },

@@ -1,5 +1,5 @@
-import Task from '@/components/task';
+import Content from '@/components/content';
 
 export default function Assignment() {
-  return <Task />;
+  return <Content />;
 }

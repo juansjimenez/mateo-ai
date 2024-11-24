@@ -1,54 +1,83 @@
 import { ImageSourcePropType, Pressable, View, StyleSheet } from 'react-native';
 import { AlternativeSelection, AssignmentCard } from '@/components';
-import React, { PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import { ThemedText } from '@/components/ThemedText';
 import ChatModal from '@/components/ChatModal';
 import { Header, MainContainer } from '@/app/(tabs)';
+import Server from '@/server/server';
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
   taskStatement: string;
 }>;
 
+interface Alternative {
+  index: number;
+  text: string;
+  isCorrect: boolean;
+}
+
+interface Question {
+  statement: string;
+  identifier: string;
+  alternatives: Alternative[];
+}
+
 export default function Task() {
   const [chatVisibility, setChatVisibility] = useState(false);
-  const [actualQuestion, setActualQuestion] = useState(
-    'b6611aa2-ad26-4236-a077-00cf1d5b4002',
-  );
+  const [actualQuestion, setActualQuestion] = useState({
+    statement: loremImpsum,
+    alternatives: [
+      {
+        index: 1,
+        text: '1/2',
+      },
+      {
+        index: 2,
+        text: '10/26',
+      },
+      {
+        index: 3,
+        text: '1/3',
+      },
+      {
+        index: 4,
+        text: '2/9',
+      },
+    ],
+  } as Question);
   const [selectedAlternative, setSelectedAlternative] = useState('');
-  const [alternatives, setAlternatives] = useState([
-    {
-      id: '1',
-      text: '1/2',
-    },
-    {
-      id: '2',
-      text: '10/26',
-    },
-    {
-      id: '3',
-      text: '1/3',
-    },
-    {
-      id: '4',
-      text: '2/9',
-    },
-  ]);
+
+  useEffect(() => {
+    const getQuestion = async () => {
+      const response = await Server.post('/personalized-exercises/personalize', {
+        profileIdentifier: 'ee654115-aa6a-4710-902f-73813ca55bd6',
+        subjectIdentifier: 'Números',
+        unitIdentifier: 'Matemática financiera',
+      });
+      console.log('responsseeeee,', response);
+      if (response && response.message && response.message.length > 0) {
+        setActualQuestion(response.message[0] as Question);
+      }
+    };
+    getQuestion();
+  }, []);
+
   const onCheckedChange = (checked: string) => {
     setSelectedAlternative(checked);
   };
 
-  const handleChatVisibility = () => {
+  const handleChatVisibility = async () => {
     setChatVisibility(!chatVisibility);
   };
 
   return (
     <MainContainer>
       {Header('Ejercicio')}
-      <AssignmentCard taskStatement={loremImpsum} />
+      <AssignmentCard taskStatement={actualQuestion.statement} />
       <AlternativeSelection
-        alternatives={alternatives}
+        alternatives={actualQuestion.alternatives}
         onCheckedChange={onCheckedChange}
       />
       <View style={styles.space} />
@@ -67,7 +96,7 @@ export default function Task() {
       <ChatModal
         chatVisibility={chatVisibility}
         setChatVisibility={setChatVisibility}
-        actualQuestionId={actualQuestion}
+        actualQuestionId={actualQuestion.identifier}
       />
     </MainContainer>
   );

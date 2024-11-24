@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import React from 'react';
+import MarkdownView from './Markdown';
 
 const styles = StyleSheet.create({
   alternativeContainer: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 interface AlternativeSelectionProps {
-  alternatives: { id: string; text: string }[];
+  alternatives: { index: number; text: string }[];
   onCheckedChange: (checked: string) => void;
 }
 
@@ -33,13 +34,13 @@ const AlternativeSelection: React.FC<AlternativeSelectionProps> = ({
   return (
     <>
       {alternatives.map((alternative) => (
-        <View key={alternative.id} style={styles.alternativeContainer}>
+        <View key={alternative.index} style={styles.alternativeContainer}>
           <RadioButton
-            value={alternative.id}
-            status={checked === alternative.id ? 'checked' : 'unchecked'}
-            onPress={() => handlePress(alternative.id)}
+            value={`${alternative.index}`}
+            status={checked === `${alternative.index}` ? 'checked' : 'unchecked'}
+            onPress={() => handlePress(`${alternative.index}`)}
           />
-          <Text style={styles.textContainer}>{alternative.text}</Text>
+          <MarkdownView taskStatement={alternative.text} />
         </View>
       ))}
     </>
