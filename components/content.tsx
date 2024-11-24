@@ -6,10 +6,10 @@ import { Header, MainContainer } from '@/app/(tabs)';
 function Content(title: string) {
   return (
     <View style={styles.asignaturaContainer} key={title}>
-        <Text style={styles.asignaturaTitle}>{title}</Text>
-        <View style={styles.barContainer}>
+      <Text style={styles.asignaturaTitle}>{title}</Text>
+      <View style={styles.barContainer}>
         <ProgressBar barsize={size.small} percentage={80} />
-        </View>
+      </View>
     </View>
   );
 }
@@ -25,11 +25,9 @@ export default function Contents() {
   return (
     <MainContainer>
       {Header('Contenidos')}
-      <View style={styles.contenidosContainer}>
-        {contentsView}
-      </View>
+      <View style={styles.contenidosContainer}>{contentsView}</View>
     </MainContainer>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

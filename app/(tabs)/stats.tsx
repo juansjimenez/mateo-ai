@@ -1,6 +1,6 @@
-import { Svg, Polygon } from 'react-native-svg';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
 import React, { useState } from 'react';
+import { Header, MainContainer } from './';
 
 import { RadarChart } from '@salmonco/react-native-radar-chart';
 
@@ -8,8 +8,8 @@ const spiderChart = () => {
   const data = [
     { label: 'Números', value: 30 },
     { label: 'Álgebra', value: 55 },
-    { label: 'Geometría', value: 70 },
-    { label: 'Probabilidad', value: 35 },
+    { label: 'Probabilidad', value: 70 },
+    { label: 'Geometría', value: 35 },
   ];
 
   return (
@@ -36,41 +36,35 @@ const spiderChart = () => {
   );
 };
 
-function Hexagon() {
-  return (
-    <Svg height="300" width="300">
-      <Polygon
-        points="00,150 225,280 75,280 0,150 75,20 225,20 300,150 225,280"
-        stroke="black"
-        fill="white"
-        strokeWidth="1"
-      ></Polygon>
-    </Svg>
-  );
-}
 type strength = {
   name: string;
   points: number;
 };
 const dummyStrength: strength[] = [
   {
-    name: 'Dummy Name',
-    points: 2,
+    name: 'Probabilidad',
+    points: 4,
   },
   {
-    name: 'Dummy Name',
+    name: 'Geometría',
     points: 3,
   },
   {
-    name: 'Dummy Name',
-    points: 4,
+    name: 'Álgebra',
+    points: 2,
   },
+  {
+    name: 'Números',
+    points: 1
+  }
 ];
 
 function strengthView(points: number, name: string) {
   return (
-    <View style={[styles.statContainer]}>
-      <View style={[styles.statRow, { width: 100 * points }]}>{name}</View>
+    <View style={styles.box}>
+      <View style={[styles.statContainer]}>
+        <View style={[styles.statRow, { width: 100 * points }]}>{name}</View>
+      </View>
     </View>
   );
 }
@@ -85,10 +79,13 @@ function listOfStregths() {
 }
 export default function userStats() {
   return (
-    <View>
-      {spiderChart()}
-      {listOfStregths()}
-    </View>
+    <MainContainer>
+      {Header('Avances')}
+      <ScrollView>
+        {spiderChart()}
+        {listOfStregths()}
+      </ScrollView>
+    </MainContainer>
   );
 }
 
@@ -96,12 +93,13 @@ const styles = StyleSheet.create({
   statRow: {
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: 'green',
+    backgroundColor: '#20c997',
     borderRadius: 5,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
     flexDirection: 'row',
+    color: 'white'
   },
   statContainer: {
     width: '100%',
@@ -111,4 +109,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  box: {
+    alignItems: 'center',
+    marginLeft: '30%',
+  }
+
 });
