@@ -23,6 +23,7 @@ const httpserver = app.listen(port, () => {
 const io = new Server(httpserver, {
   cors: {
     origin: "*",
+    methods: ["GET", "POST"], 
   },
 });
 
