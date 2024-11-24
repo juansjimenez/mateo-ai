@@ -2,7 +2,7 @@ import { ImageSourcePropType, Pressable, ScrollView, StyleSheet } from 'react-na
 import { AlternativeSelection, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
-import ChatModal from '../../components/ChatModal';
+import ChatModal from './ChatModal';
 import { ThemedText } from '@/components/ThemedText';
 
 type Props = PropsWithChildren<{

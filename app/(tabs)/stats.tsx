@@ -22,21 +22,31 @@ type strength = {
     name: string
     points: number
 }
-const dummyStrength : strength = {
+const dummyStrength : strength[] = [{
     name: 'Dummy Name',
     points: 2
-}
+},
+{
+    name: 'Dummy Name',
+    points: 3
+},
+{
+    name: 'Dummy Name',
+    points: 4
+}]
 
 function strengthView(points: number, name: string){
     return(
-        <View style={[style.statContainer, { width: 100* points } ]}>
-            {name}
+        <View style={[style.statContainer]}>
+            <View style={[style.statRow, { width: 100* points } ]}>
+                {name}
+            </View>
         </View>
 
     )
 }
 function listOfStregths() {
-    const [strengths, listOfStregth] = useState([dummyStrength]);
+    const [strengths, listOfStregth] = useState(dummyStrength);
     let stregthsView = []
     for(let strengthIdx in strengths){
         const strength = strengths[strengthIdx]
@@ -47,13 +57,14 @@ function listOfStregths() {
 export default function userStats(){
     return(
         <View>
+            
             {listOfStregths()}
         </View>
     )
 }
 
 const style = StyleSheet.create({
-      statContainer: {
+      statRow: {
         alignContent: 'center',
         justifyContent: 'center',
         backgroundColor: 'green',
@@ -62,5 +73,9 @@ const style = StyleSheet.create({
         paddingBottom: 5,
         marginTop: 5,
         flexDirection: 'row'
+      },
+      statContainer: {
+        width: '100%'
       }
+      
     })
