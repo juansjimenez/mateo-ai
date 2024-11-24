@@ -10,6 +10,7 @@ import {
 import { ProgressBar, size } from '@/components';
 import React, { useState } from 'react';
 import { allSubjects } from '@/assets/all-subjects';
+import Contents from '@/components/content';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
@@ -44,34 +45,40 @@ type modulesStruct = {
   units: { unitId: string }[];
 };
 
-function BuildModule(module: modulesStruct) {
+function BuildModule(module: modulesStruct, handleChatVisibility: () => void) {
   return (
-    <Pressable key={module.subjectId} style={{ width: '95%' }}>
+    <Pressable key={module.subjectId} style={{ width: '95%' }}  onPress={handleChatVisibility}>
       <View style={styles.subjectItem}>{moduleCard(module.image, module.subjectId)}</View>
     </Pressable>
   );
 }
 
-function listOfModules() {
+function listOfModules(handleChatVisibility: () => void) {
   let modulesView = [];
   for (let moduleIdx in allSubjects) {
     const module = allSubjects[moduleIdx];
-    modulesView.push(BuildModule(module));
+    modulesView.push(BuildModule(module,handleChatVisibility));
   }
   return modulesView;
 }
 
 function LandingDashboard() {
-  const [unitVisibility, setUnitVisibility] = useState(false);
+  const [unitVisibility, setUnitVisibility] = useState(true);
 
   const handleChatVisibility = () => {
     setUnitVisibility(!unitVisibility);
   };
 
   return (
-    <View style={styles.mainContainer}>
-      {Header('Unidades')}
-      <View style={styles.subjects}>{listOfModules()}</View>
+    <View>
+      {unitVisibility ? (
+        <View style={styles.mainContainer}>
+          {Header('Unidades')}
+          <View style={styles.subjects}>{listOfModules(handleChatVisibility)}</View>
+        </View>
+      ) : (
+        <Contents />
+      )}
     </View>
   );
 }
