@@ -108,7 +108,7 @@ export default function PreferenceScreen() {
           ))}
         </ThemedView>
         <Pressable style={styles.sendButton}>
-          <ThemedText type="defaultSemiBold" onPress={savePreferences}>
+          <ThemedText type="defaultSemiBold" onPress={savePreferences} centered>
             {buttonText}
           </ThemedText>
         </Pressable>
