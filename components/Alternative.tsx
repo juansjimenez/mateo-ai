@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import React from 'react';
-const mockAlternatives = require('../app/datatypes/mocks/mockAlternatives.json');
 
 const styles = StyleSheet.create({
   alternativeContainer: {
@@ -14,23 +13,34 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-const AlternativeSelection = () => {
+
+interface AlternativeSelectionProps {
+  alternatives: { id: string; text: string }[];
+  onCheckedChange: (checked: string) => void;
+}
+
+const AlternativeSelection: React.FC<AlternativeSelectionProps> = ({ alternatives, onCheckedChange }) => {
   const [checked, setChecked] = React.useState('first');
-  let alternatives = [];
-  for (let alternativeIdx in mockAlternatives) {
-    let alternative = mockAlternatives[alternativeIdx];
-    alternatives.push(
-      <View style={styles.alternativeContainer}>
-        <RadioButton
-          value={alternative.id}
-          status={checked === alternative.id ? 'checked' : 'unchecked'}
-          onPress={() => setChecked(alternative.id)}
-        />
-        <Text style={styles.textContainer}>{alternative.text}</Text>
-      </View>,
-    );
-  }
-  return alternatives;
+
+  const handlePress = (id: string) => {
+    setChecked(id);
+    onCheckedChange(id);
+  };
+
+  return (
+    <>
+      {alternatives.map((alternative) => (
+        <View key={alternative.id} style={styles.alternativeContainer}>
+          <RadioButton
+            value={alternative.id}
+            status={checked === alternative.id ? 'checked' : 'unchecked'}
+            onPress={() => handlePress(alternative.id)}
+          />
+          <Text style={styles.textContainer}>{alternative.text}</Text>
+        </View>
+      ))}
+    </>
+  );
 };
 
 export default AlternativeSelection;
