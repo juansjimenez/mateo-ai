@@ -7,7 +7,7 @@ import {
   ScrollView,
   Pressable
 } from 'react-native';
-import { ProgressBar, size, Units } from '@/components';
+import { ProgressBar, size } from '@/components';
 import React, { useState } from 'react';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
