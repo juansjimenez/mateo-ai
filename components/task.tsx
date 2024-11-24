@@ -1,4 +1,4 @@
-import { ImageSourcePropType, Pressable, View, StyleSheet } from 'react-native';
+import { Pressable, View, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { AlternativeSelection, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
@@ -8,7 +8,6 @@ import { Header, MainContainer } from '@/app/(tabs)';
 import Server from '@/server/server';
 
 type Props = PropsWithChildren<{
-  handleNextQuestion: () => void;
   subjectId: string;
   unitId: string;
 }>;
@@ -25,10 +24,11 @@ interface Question {
   alternatives: Alternative[];
 }
 
-export default function Task({ handleNextQuestion, subjectId, unitId }: Props) {
+export default function Task({ subjectId, unitId }: Props) {
   const [isCorrect, setIsCorrect] = useState(false);
   const [endpointCalled, setEndpointCalled] = useState(false);
   const [chatVisibility, setChatVisibility] = useState(false);
+  const [actualQuestionIndex, setActualQuestionIndex] = useState(0);
   const [actualQuestion, setActualQuestion] = useState({
     statement: loremImpsum,
     alternatives: [
@@ -50,22 +50,40 @@ export default function Task({ handleNextQuestion, subjectId, unitId }: Props) {
       },
     ],
   } as Question);
+  const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [selectedAlternative, setSelectedAlternative] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getQuestion = async () => {
       const response = await Server.post('/personalized-exercises/personalize', {
         profileIdentifier: 'ee654115-aa6a-4710-902f-73813ca55bd6',
-        subjectIdentifier:  subjectId,
+        subjectIdentifier: subjectId,
         unitIdentifier: unitId,
       });
-      console.log('responsseeeee,', response);
+      console.log('all questions,', JSON.stringify(response));
       if (response && response.message && response.message.length > 0) {
         setActualQuestion(response.message[0] as Question);
+        setAllQuestions(response.message);
+        setActualQuestion(response.message[0] as Question);
+        setActualQuestionIndex(0);
+        setIsLoading(false);
       }
     };
+
     getQuestion();
   }, []);
+
+  async function handleNextQuestion() {
+    if (actualQuestionIndex + 1 < allQuestions.length) {
+      setActualQuestion(allQuestions[actualQuestionIndex + 1]);
+      setActualQuestionIndex(actualQuestionIndex + 1);
+    } else {
+      showStats();
+    }
+  }
+
+  function showStats() { }
 
   async function answerQuestion() {
     const index = actualQuestion.alternatives.findIndex(
@@ -100,40 +118,48 @@ export default function Task({ handleNextQuestion, subjectId, unitId }: Props) {
   return (
     <MainContainer>
       {Header('Ejercicio')}
-      <AssignmentCard taskStatement={actualQuestion.statement} />
-      <AlternativeSelection
-        alternatives={actualQuestion.alternatives}
-        onCheckedChange={onCheckedChange}
-      />
-      <View style={styles.space} />
-      {isCorrect ? (
-        <ThemedText style={styles.textStyle} centered>
-          {' '}
-          Correcto! 🎉
-        </ThemedText>
-      ) : (
-        <ThemedText style={styles.textStyle} centered>
-          {' '}
-          Incorrecto! 😞
-        </ThemedText>
-      )}
-      <Pressable style={[styles.contestarButton]} onPress={endpointCalled ? answerQuestion : handleNextQuestionWrapper}>
-        <ThemedText style={styles.textStyle} centered>
-          {' '}
-          {endpointCalled ? 'Siguiente' : 'Contestar'}
-        </ThemedText>
-      </Pressable>
-      <Pressable style={[styles.button]} onPress={handleChatVisibility}>
-        <ThemedText style={styles.textStyle} centered>
-          {' '}
-          💬 Ayuda
-        </ThemedText>
-      </Pressable>
-      <ChatModal
-        chatVisibility={chatVisibility}
-        setChatVisibility={setChatVisibility}
-        actualQuestionId={actualQuestion.identifier}
-      />
+      {isLoading ? <ActivityIndicator size="large" color="#00ff00" /> :
+      (
+      <ScrollView>
+        <AssignmentCard taskStatement={actualQuestion.statement} />
+        <AlternativeSelection
+          alternatives={actualQuestion.alternatives}
+          onCheckedChange={onCheckedChange}
+        />
+        <View style={styles.space} />
+        {isCorrect ? (
+          <ThemedText style={styles.textStyle} centered>
+            {' '}
+            Correcto! 🎉
+          </ThemedText>
+        ) : (
+          <ThemedText style={styles.textStyle} centered>
+            {' '}
+            Incorrecto! 😞
+          </ThemedText>
+        )}
+        <Pressable style={[styles.contestarButton]} onPress={endpointCalled ? answerQuestion : handleNextQuestionWrapper}>
+          <ThemedText style={styles.textStyle} centered>
+            {' '}
+            {endpointCalled ? 'Siguiente' : 'Contestar'}
+          </ThemedText>
+        </Pressable>
+        <Pressable style={[styles.button]} onPress={handleChatVisibility}>
+          <ThemedText style={styles.textStyle} centered>
+            {' '}
+            💬 Ayuda
+          </ThemedText>
+        </Pressable>
+        <ChatModal
+          chatVisibility={chatVisibility}
+          setChatVisibility={setChatVisibility}
+          actualQuestionId={actualQuestion.identifier}
+        />
+      </ScrollView>
+
+      )
+    }
+
     </MainContainer>
   );
 }
@@ -162,7 +188,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   textStyle: {
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
   },
