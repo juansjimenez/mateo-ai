@@ -1,10 +1,9 @@
-import { ImageSourcePropType, Pressable, StyleSheet } from 'react-native';
+import { ImageSourcePropType, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { AlternativeSelection, AssignmentCard } from '@/components';
 import React, { PropsWithChildren, useState } from 'react';
 import { loremImpsum } from '@/assets/loremipsum';
 import ChatModal from '../../components/ChatModal';
 import { ThemedText } from '@/components/ThemedText';
-import { ScrollView } from 'react-native-gesture-handler';
 
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
@@ -13,7 +12,9 @@ type Props = PropsWithChildren<{
 
 export default function Assignment() {
   const [chatVisibility, setChatVisibility] = useState(false);
-  const [actualQuestion, setActualQuestion] = useState('');
+  const [actualQuestion, setActualQuestion] = useState(
+    'b6611aa2-ad26-4236-a077-00cf1d5b4002',
+  );
   const handleChatVisibility = () => {
     setChatVisibility(!chatVisibility);
   };
@@ -27,37 +28,18 @@ export default function Assignment() {
       />
       <AlternativeSelection />
       <Pressable style={[styles.button]} onPress={handleChatVisibility}>
-        <ThemedText style={styles.textStyle}>Chat</ThemedText>
+        <ThemedText style={styles.textStyle}> 💬 Chat</ThemedText>
       </Pressable>
       <ChatModal
         chatVisibility={chatVisibility}
         setChatVisibility={setChatVisibility}
-        actualQuestion={actualQuestion}
+        actualQuestionId={actualQuestion}
       />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  home: {
-    height: '100%',
-  },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
   button: {
     borderRadius: 20,
     padding: 10,
@@ -66,13 +48,11 @@ const styles = StyleSheet.create({
     width: '30%',
     marginLeft: 'auto',
     marginTop: 'auto',
+    marginRight: 10,
   },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  exerciseimage: {
-    boxSizing: 'fit',
   },
 });

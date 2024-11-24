@@ -5,7 +5,7 @@ const get = async (url: string) => {
   try {
     const response = await fetch(`${serverIP}${url}`, {
       method: 'GET',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -22,13 +22,13 @@ const post = async (url: string, body: Record<string, unknown>) => {
   try {
     const response = await fetch(`${serverIP}${url}`, {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    });
+    })
     const json = await response.json();
     return json;
   } catch (error) {

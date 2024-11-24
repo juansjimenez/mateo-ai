@@ -1,9 +1,8 @@
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { TextInput } from 'react-native-paper';
 import { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 import Server from '@/server/server';
 
 interface Preference {
@@ -61,12 +60,10 @@ export default function PreferenceScreen() {
       if (interest.selected)
         selectedInterests.push({ category: interest.text, value: interest.text });
     });
-
-    const r = await Server.post('/profiles', {
+    await Server.post('/profiles', {
       name: preferences.name,
       preferences: selectedInterests,
     });
-    console.log('response', r);
   };
 
   return (

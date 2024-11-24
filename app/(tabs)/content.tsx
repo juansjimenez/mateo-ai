@@ -1,8 +1,7 @@
-import { StyleSheet, Theme, View } from 'react-native';
+import { StyleSheet, Theme, View, ScrollView } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { AssignmentCard, size } from '@/components';
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 
 function Content(styles: StyleSheet, content: string) {
   return (

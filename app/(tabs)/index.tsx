@@ -1,7 +1,13 @@
-import { ImageSourcePropType, Text, StyleSheet, View, Image } from 'react-native';
+import {
+  ImageSourcePropType,
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+} from 'react-native';
 import { ProgressBar, size } from '@/components';
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 
 function moduleCard(source: ImageSourcePropType | undefined) {
   return (
