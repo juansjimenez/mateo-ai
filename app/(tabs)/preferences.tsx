@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 40,
     borderRadius: 10,
-    width : '100%',
+    width: '100%',
     display: 'flex',
     alignContent: 'center',
     justifyContent: 'center',

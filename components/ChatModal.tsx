@@ -33,6 +33,7 @@ function ChatModal({
         },
       ]);
       setLoading(true);
+      // Todo, use react hooks for this
       const response = await server.get(`/personalized-exercises/${actualQuestionId}`);
       new Promise((resolve) =>
         setTimeout(() => {

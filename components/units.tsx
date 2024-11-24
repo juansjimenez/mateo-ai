@@ -2,10 +2,10 @@ import { StyleSheet, Theme, ScrollView } from 'react-native';
 import { AssignmentCard, size } from '@/components';
 import React, { useState } from 'react';
 
-function Assignment(assignmentTitle: string) {
+function Unit(assignmentTitle: string) {
   return (
     <AssignmentCard
-      placeholderImageSource={require('../../assets/images/excercise/ejercicio.png')}
+      placeholderImageSource={require('../assets/images/excercise/ejercicio.png')}
       hasProgress={true}
       progressSize={size.big}
       cardTitle={assignmentTitle}
@@ -13,12 +13,12 @@ function Assignment(assignmentTitle: string) {
   );
 }
 
-export default function Assignments() {
+export default function Units() {
   const [assignments, setAssignments] = useState(['Ecuaciones Simples']);
   let assignmentsView = [];
   for (let assignmentIdx in assignments) {
     let assignment = assignments[assignmentIdx];
-    assignmentsView.push(Assignment(assignment));
+    assignmentsView.push(Unit(assignment));
   }
   return (
     <ScrollView style={{ height: '100%', backgroundColor: 'white' }}>

@@ -37,7 +37,7 @@ export default function Task() {
   ]);
   const onCheckedChange = (checked: string) => {
     setSelectedAlternative(checked);
-  }
+  };
 
   const handleChatVisibility = () => {
     setChatVisibility(!chatVisibility);
@@ -46,16 +46,23 @@ export default function Task() {
   return (
     <MainContainer>
       {Header('Ejercicio')}
-      <AssignmentCard
-        taskStatement={loremImpsum}
+      <AssignmentCard taskStatement={loremImpsum} />
+      <AlternativeSelection
+        alternatives={alternatives}
+        onCheckedChange={onCheckedChange}
       />
-      <AlternativeSelection alternatives={alternatives} onCheckedChange={onCheckedChange} />
       <View style={styles.space} />
       <Pressable style={[styles.contestarButton]} onPress={handleChatVisibility}>
-        <ThemedText style={styles.textStyle} centered> Contestar</ThemedText>
+        <ThemedText style={styles.textStyle} centered>
+          {' '}
+          Contestar
+        </ThemedText>
       </Pressable>
       <Pressable style={[styles.button]} onPress={handleChatVisibility}>
-        <ThemedText style={styles.textStyle} centered> 💬 Ayuda</ThemedText>
+        <ThemedText style={styles.textStyle} centered>
+          {' '}
+          💬 Ayuda
+        </ThemedText>
       </Pressable>
       <ChatModal
         chatVisibility={chatVisibility}

@@ -7,10 +7,7 @@ type Props = PropsWithChildren<{
   taskStatement?: string;
 }>;
 
-export default function AssignmentCard({
-  children,
-  taskStatement,
-}: Props) {
+export default function AssignmentCard({ children, taskStatement }: Props) {
   const theme = useTheme();
   const styles = makeStyles(theme);
   return (
@@ -20,7 +17,6 @@ export default function AssignmentCard({
       </View>
       <View style={styles.buttonContainer}>{children}</View>
     </View>
-
   );
 }
 
@@ -43,6 +39,6 @@ const makeStyles = (theme: Theme) => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-    }
+    },
   });
 };

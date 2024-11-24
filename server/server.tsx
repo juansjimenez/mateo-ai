@@ -28,7 +28,7 @@ const post = async (url: string, body: Record<string, unknown>) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    })
+    });
     const json = await response.json();
     return json;
   } catch (error) {

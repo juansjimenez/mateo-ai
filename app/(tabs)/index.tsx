@@ -5,19 +5,19 @@ import {
   View,
   Image,
   ScrollView,
+  Pressable,
 } from 'react-native';
 import { ProgressBar, size } from '@/components';
-import React from 'react';
+import React, { useState } from 'react';
 
 function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
     <View style={styles.asignaturaContainer}>
-        
-        <Image style={styles.stretch} source={source} />
-        <Text style={styles.asignaturaTitle}>{title}</Text>
-        <View style={styles.barContainer}>
+      <Image style={styles.stretch} source={source} />
+      <Text style={styles.asignaturaTitle}>{title}</Text>
+      <View style={styles.barContainer}>
         <ProgressBar barsize={size.small} percentage={80} />
-        </View>
+      </View>
     </View>
   );
 }
@@ -29,30 +29,65 @@ function MainContainer({ children }: { children: React.ReactNode }) {
 function Header(title: string) {
   return (
     <View style={styles.headerContainer}>
-      <Image style={styles.headerIcon} source={require('../../assets/images/mateo-icon.png')} />
+      <Image
+        style={styles.headerIcon}
+        source={require('../../assets/images/mateo-icon.png')}
+      />
       <Text style={styles.headerText}>{title}</Text>
     </View>
   );
 }
+type modulesStruct = {
+  image: NodeRequire;
+  name: string;
+};
+const modules: modulesStruct[] = [
+  {
+    image: require('../../assets/images/math-subjects/numeros.png'),
+    name: 'Números',
+  },
+  {
+    image: require('../../assets/images/math-subjects/algebra.png'),
+    name: 'Álgebra',
+  },
+  {
+    image: require('../../assets/images/math-subjects/geometry.png'),
+    name: 'Geometría',
+  },
+  {
+    image: require('../../assets/images/math-subjects/probabilidad.png'),
+    name: 'Probabilidad',
+  },
+];
+
+function BuildModule(module: modulesStruct) {
+  return (
+    <Pressable style={{ width: '95%' }}>
+      <View style={styles.subjectItem}>{moduleCard(module.image, module.name)}</View>
+    </Pressable>
+  );
+}
+
+function listOfModules() {
+  let modulesView = [];
+  for (let moduleIdx in modules) {
+    const module = modules[moduleIdx];
+    modulesView.push(BuildModule(module));
+  }
+  return modulesView;
+}
 
 function LandingDashboard() {
+  const [unitVisibility, setUnitVisibility] = useState(false);
+
+  const handleChatVisibility = () => {
+    setUnitVisibility(!unitVisibility);
+  };
+
   return (
     <View style={styles.mainContainer}>
       {Header('Asignaturas')}
-      <View style={styles.subjects}>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/numeros.png'), 'Números')}
-        </View>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/algebra.png'), 'Álgebra')}
-        </View>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/geometry.png'), 'Geometría')}
-        </View>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/probabilidad.png'), 'Probabilidad')}
-        </View>
-      </View>
+      <View style={styles.subjects}>{listOfModules()}</View>
     </View>
   );
 }
@@ -141,5 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export { Header, MainContainer }
+export { Header, MainContainer };

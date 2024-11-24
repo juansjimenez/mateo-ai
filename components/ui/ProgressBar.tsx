@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     backgroundColor: 'white',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   numerito: {
     fontSize: 10,
@@ -45,12 +45,12 @@ export function ProgressBar({ barsize, percentage }: Props) {
       style={[styles.progressContainer, { height: barsize }]}
     >
       <LinearGradient
-          className="rounded-lg"
-          colors={['#38FA18', 'transparent']}
-          style={[styles.progress, { height: barsize-2, width: `${percentage}%` }]}
-          start={[0, 1]}
-          end={[1, 0]}
-        />
+        className="rounded-lg"
+        colors={['#38FA18', 'transparent']}
+        style={[styles.progress, { height: barsize - 2, width: `${percentage}%` }]}
+        start={[0, 1]}
+        end={[1, 0]}
+      />
       <Text style={styles.numerito}>{`${Number(percentage)} %`}</Text>
     </View>
   );
