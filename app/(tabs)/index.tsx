@@ -8,16 +8,12 @@ import {
 } from 'react-native';
 import { ProgressBar, size } from '@/components';
 import React from 'react';
-
-function moduleCard(source: ImageSourcePropType | undefined) {
+function moduleCard(source: ImageSourcePropType | undefined, title: string) {
   return (
-    <View>
-      <View>
+    <View style={styles.asignaturaContainer}>
         <ProgressBar barsize={size.small} />
-      </View>
-      <View>
         <Image style={styles.stretch} source={source} />
-      </View>
+        <Text>{title}</Text>
     </View>
   );
 }
@@ -30,16 +26,16 @@ function LandingDashboard() {
       </View>
       <View style={styles.subjects}>
         <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/modules/modulo1.png'))}
+          {moduleCard(require('../../assets/images/math-subjects/numeros.png'), 'Numeros')}
         </View>
         <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/modules/modulo2.png'))}
+          {moduleCard(require('../../assets/images/math-subjects/algebra.png'), 'Algebra')}
         </View>
         <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/modules/modulo3.png'))}
+          {moduleCard(require('../../assets/images/math-subjects/geometry.png'), 'Probabilidad')}
         </View>
         <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/modules/modulo4.png'))}
+          {moduleCard(require('../../assets/images/math-subjects/probabilidad.png'), 'Estadística')}
         </View>
       </View>
     </View>
@@ -56,24 +52,31 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    display: 'flex',
     gap: 8,
     marginBottom: 8,
-    backgroundColor: 'white',
+    padding: 20,
+    backgroundColor: 'red',
     height: '100%',
-  },
-  container: {
-    paddingTop: 20,
-    paddingLeft: 20,
-  },
-  stretch: {
-    width: 100,
-    height: 100,
-    resizeMode: 'stretch',
   },
   titleContainer: {
     flex: 1,
     backgroundColor: 'white',
     top: 20,
+    marginRight: -20,
+    marginLeft: -20,
+  },
+  asignaturaContainer: {
+    flexDirection: 'column',
+    width: '100%',
+    backgroundColor: 'white',
+    borderRadius: 5,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  stretch: {
+    width: '100%',
+    height: 100,
   },
   text: {
     fontSize: 20,
@@ -83,12 +86,14 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   subjects: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    width: '100%',
   },
   subjectItem: {
     margin: 10,
+    width: '100%',
   },
 });
