@@ -1,39 +1,26 @@
-import { ImageSourcePropType, StyleSheet, Theme, View } from 'react-native';
-import { Card, useTheme } from 'react-native-paper';
-import { ProgressBar, size } from '@/components';
+import { StyleSheet, Theme, View } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import React, { PropsWithChildren } from 'react';
 import MarkdownView from './Markdown';
 
 type Props = PropsWithChildren<{
-  placeholderImageSource?: ImageSourcePropType;
   taskStatement?: string;
-  cardTitle?: string;
-  hasProgress: boolean;
-  progressSize?: size;
 }>;
 
 export default function AssignmentCard({
   children,
-  placeholderImageSource,
   taskStatement,
-  hasProgress,
-  cardTitle,
-  progressSize,
 }: Props) {
   const theme = useTheme();
   const styles = makeStyles(theme);
   return (
-    <Card>
-      {hasProgress && progressSize && <ProgressBar barsize={progressSize} />}
-      {placeholderImageSource && <Card.Cover source={placeholderImageSource} />}
-      <Card.Title title={cardTitle} />
-      {taskStatement && (
-        <Card.Content>
-          <MarkdownView taskStatement={taskStatement} />
-        </Card.Content>
-      )}
+    <View style={styles.exerciseContainer}>
+      <View style={styles.statementContainer}>
+        <MarkdownView taskStatement={taskStatement} />
+      </View>
       <View style={styles.buttonContainer}>{children}</View>
-    </Card>
+    </View>
+
   );
 }
 
@@ -43,13 +30,19 @@ const makeStyles = (theme: Theme) => {
       alignContent: 'center',
       justifyContent: 'center',
     },
-    textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
+    exerciseContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      padding: 10,
+      margin: 0,
     },
-    exerciseimage: {
-      boxSizing: 'fit',
-    },
+    statementContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }
   });
 };
