@@ -1,42 +1,59 @@
-import { StyleSheet, Theme, View, ScrollView } from 'react-native';
-import { useTheme } from 'react-native-paper';
-import { AssignmentCard, size } from '@/components';
+import { StyleSheet, View, Text } from 'react-native';
+import { ProgressBar, size } from '@/components';
 import React, { useState } from 'react';
+import { Header, MainContainer } from '@/app/(tabs)';
 
-function Content(styles: StyleSheet, content: string) {
+function Content(title: string) {
   return (
-    <ScrollView>
-      <AssignmentCard cardTitle={content} hasProgress={true} progressSize={size.big}>
-        <View style={styles.buttonContainer}></View>
-      </AssignmentCard>
-    </ScrollView>
+    <View style={styles.asignaturaContainer}>
+        <Text style={styles.asignaturaTitle}>{title}</Text>
+        <View style={styles.barContainer}>
+        <ProgressBar barsize={size.small} percentage={80} />
+        </View>
+    </View>
   );
 }
 
-export default function MakeContents() {
-  const [contents, setContent] = useState(['This is the content']);
-  const theme = useTheme();
-  const styles = makeStyles(theme);
+export default function Contents() {
+  const [contents, setContent] = useState(['This is the content', 'Content-b']);
+
   let contentsView = [];
   for (let contentIdx in contents) {
     let content = contents[contentIdx];
-    contentsView.push(Content(styles, content));
+    contentsView.push(Content(content));
   }
-  return contentsView;
+  return (
+    <MainContainer>
+      {Header('Contenidos')}
+      <View style={styles.contenidosContainer}>
+        {contentsView}
+      </View>
+    </MainContainer>
+  )
 }
-const makeStyles = (theme: Theme) => {
-  return StyleSheet.create({
-    buttonContainer: {
-      alignContent: 'center',
-      justifyContent: 'center',
-    },
-    textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    exerciseimage: {
-      boxSizing: 'fit',
-    },
-  });
-};
+
+const styles = StyleSheet.create({
+  contenidosContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 5,
+    margin: 0,
+    gap: 20,
+  },
+  asignaturaContainer: {
+    flexDirection: 'column',
+    width: '100%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    boxShadow: '2px 2px 2px 1px rgba(0, 0, 0, 0.2)',
+  },
+  asignaturaTitle: {
+    fontSize: 25,
+    padding: 8,
+  },
+  barContainer: {
+    padding: 8,
+  },
+});
