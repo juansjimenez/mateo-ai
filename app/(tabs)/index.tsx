@@ -35,6 +35,46 @@ function Header(title: string) {
     </View>
   );
 }
+type modulesStruct = {
+  image: NodeRequire,
+  name: string,
+}
+const modules: modulesStruct[] = [
+  {
+    image: require('../../assets/images/math-subjects/numeros.png'),
+    name: 'Números'
+  },
+  {
+    image: require('../../assets/images/math-subjects/algebra.png'),
+    name: 'Álgebra'
+  },
+  {
+    image: require('../../assets/images/math-subjects/geometry.png'),
+    name: 'Geometría'
+  },
+  {
+    image: require('../../assets/images/math-subjects/probabilidad.png'),
+    name: 'Probabilidad'
+
+  }
+]
+
+function BuildModule(module: modulesStruct){
+  return(
+    <View style={styles.subjectItem}>
+            {moduleCard(module.image, module.name)}
+    </View>
+  )
+}
+
+function listOfModules() {
+  let modulesView = []
+  for(let moduleIdx in modules){
+      const module = modules[moduleIdx]
+      modulesView.push(BuildModule(module))
+  }
+  return modulesView
+}
 
 function LandingDashboard() {
   const [unitVisibility, setUnitVisibility] = useState(false);
@@ -43,25 +83,12 @@ function LandingDashboard() {
     setUnitVisibility(!unitVisibility);
   };
 
+
   return (
     <View style={styles.mainContainer}>
       {Header('Asignaturas')}
       <View style={styles.subjects}>
-      <Pressable onPress={handleChatVisibility}>
-
-          <View style={styles.subjectItem}>
-            {moduleCard(require('../../assets/images/math-subjects/numeros.png'), 'Números')}
-          </View>
-        </Pressable>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/algebra.png'), 'Álgebra')}
-        </View>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/geometry.png'), 'Geometría')}
-        </View>
-        <View style={styles.subjectItem}>
-          {moduleCard(require('../../assets/images/math-subjects/probabilidad.png'), 'Probabilidad')}
-        </View>
+        {listOfModules()}
       </View>
     </View>
   );

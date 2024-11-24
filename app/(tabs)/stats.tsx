@@ -6,10 +6,10 @@ import {RadarChart} from '@salmonco/react-native-radar-chart';
 
 const spiderChart = () => {
   const data = [
-    {label: 'data1', value: 30},
-    {label: 'data2', value: 55},
-    {label: 'data3', value: 70},
-    {label: 'data4', value: 35},
+    {label: 'Números', value: 30},
+    {label: 'Álgebra', value: 55},
+    {label: 'Geometría', value: 70},
+    {label: 'Probabilidad', value: 35},
   ];
 
   return (
