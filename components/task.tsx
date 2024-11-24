@@ -10,6 +10,7 @@ import Server from '@/server/server';
 type Props = PropsWithChildren<{
   placeholderImageSource: ImageSourcePropType | undefined;
   taskStatement: string;
+  handleNextQuestion: () => void;
 }>;
 
 interface Alternative {
@@ -24,7 +25,9 @@ interface Question {
   alternatives: Alternative[];
 }
 
-export default function Task() {
+export default function Task({ handleNextQuestion }: Props) {
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [endpointCalled, setEndpointCalled] = useState(false);
   const [chatVisibility, setChatVisibility] = useState(false);
   const [actualQuestion, setActualQuestion] = useState({
     statement: loremImpsum,
@@ -64,13 +67,35 @@ export default function Task() {
     getQuestion();
   }, []);
 
-  const onCheckedChange = (checked: string) => {
+  async function answerQuestion() {
+    const index = actualQuestion.alternatives.findIndex(
+      (alternative) => alternative.text === selectedAlternative
+    );
+
+    const response = await Server.post('/personalized-exercises/submit-answer', {
+      identifier: 'ee654115-aa6a-4710-902f-73813ca55bd6',
+      alternativeIndex: index
+    });
+
+    const isCorrect = response.message.isCorrect;
+    setIsCorrect(isCorrect);
+    setEndpointCalled(true);
+  }
+
+  const onCheckedChange = async (checked: string) => {
     setSelectedAlternative(checked);
+    await answerQuestion();
   };
 
   const handleChatVisibility = async () => {
     setChatVisibility(!chatVisibility);
   };
+
+  const handleNextQuestionWrapper = async () => {
+    setEndpointCalled(false);
+    setIsCorrect(false);
+    handleNextQuestion();
+  }
 
   return (
     <MainContainer>
@@ -81,10 +106,21 @@ export default function Task() {
         onCheckedChange={onCheckedChange}
       />
       <View style={styles.space} />
-      <Pressable style={[styles.contestarButton]} onPress={handleChatVisibility}>
+      {isCorrect ? (
         <ThemedText style={styles.textStyle} centered>
           {' '}
-          Contestar
+          Correcto! 🎉
+        </ThemedText>
+      ) : (
+        <ThemedText style={styles.textStyle} centered>
+          {' '}
+          Incorrecto! 😞
+        </ThemedText>
+      )}
+      <Pressable style={[styles.contestarButton]} onPress={endpointCalled ? answerQuestion : handleNextQuestionWrapper}>
+        <ThemedText style={styles.textStyle} centered>
+          {' '}
+          {endpointCalled ? 'Siguiente' : 'Contestar'}
         </ThemedText>
       </Pressable>
       <Pressable style={[styles.button]} onPress={handleChatVisibility}>
