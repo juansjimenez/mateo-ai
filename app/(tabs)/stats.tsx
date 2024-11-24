@@ -8,8 +8,8 @@ const spiderChart = () => {
   const data = [
     { label: 'Números', value: 30 },
     { label: 'Álgebra', value: 55 },
-    { label: 'Geometría', value: 70 },
-    { label: 'Probabilidad', value: 35 },
+    { label: 'Probabilidad', value: 70 },
+    { label: 'Geometría', value: 35 },
   ];
 
   return (
@@ -54,23 +54,29 @@ type strength = {
 };
 const dummyStrength: strength[] = [
   {
-    name: 'Dummy Name',
-    points: 2,
+    name: 'Probabilidad',
+    points: 4,
   },
   {
-    name: 'Dummy Name',
+    name: 'Geometría',
     points: 3,
   },
   {
-    name: 'Dummy Name',
-    points: 4,
+    name: 'Álgebra',
+    points: 2,
   },
+  {
+    name: 'Números',
+    points: 1
+  }
 ];
 
 function strengthView(points: number, name: string) {
   return (
-    <View style={[styles.statContainer]}>
-      <View style={[styles.statRow, { width: 100 * points }]}>{name}</View>
+    <View style={styles.box}>
+      <View style={[styles.statContainer]}>
+        <View style={[styles.statRow, { width: 100 * points }]}>{name}</View>
+      </View>
     </View>
   );
 }
@@ -96,12 +102,13 @@ const styles = StyleSheet.create({
   statRow: {
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: 'green',
+    backgroundColor: '#20c997',
     borderRadius: 5,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
     flexDirection: 'row',
+    color: 'white'
   },
   statContainer: {
     width: '100%',
@@ -111,4 +118,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  box: {
+    alignItems: 'center',
+    marginLeft: '30%',
+  }
+
 });

@@ -21,6 +21,7 @@ export default function RootLayout() {
       secondary: 'yellow',
       clickable: '#39FA63',
       clickablehover: '#0FD239',
+      primaryclickable: '#20c997'
     },
     font: 'Roboto',
   };
