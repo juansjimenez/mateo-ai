@@ -90,9 +90,10 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     display: 'flex',
-    gap: 20,
+    gap: 0,
     padding: 20,
-    paddingTop: 10,
+    paddingTop: 20,
+    backgroundColor: 'white'
   },
   titleContainer: {
     flex: 1,

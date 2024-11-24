@@ -72,7 +72,7 @@ export default function PreferenceScreen() {
       {Header('Preferencias')}
       <ThemedView style={styles.mainContainer} darkColor="black">
         <ThemedText type="defaultSemiBold" darkColor="black">
-          Ingresa tu nombre
+          ¿Cómo te llamas?
         </ThemedText>
         <TextInput
           style={styles.input}
@@ -87,7 +87,7 @@ export default function PreferenceScreen() {
           keyboardType="default"
         />
         <ThemedText type="defaultSemiBold" darkColor="black">
-          Selecciona tus interéses
+          ¿Qué te gusta?
         </ThemedText>
         <ThemedView style={styles.interestContainer}>
           {preferences.interests.map((preference, index) => (
@@ -108,7 +108,7 @@ export default function PreferenceScreen() {
           ))}
         </ThemedView>
         <Pressable style={styles.sendButton}>
-          <ThemedText type="defaultSemiBold" onPress={savePreferences}>
+          <ThemedText type="defaultSemiBold" onPress={savePreferences} centered>
             Guardar
           </ThemedText>
         </Pressable>
@@ -121,15 +121,19 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     height: '100%',
     padding: 10,
-    paddingTop: 50,
+    gap: 10,
+    // paddingTop: 50,
   },
   input: {
-    height: 40,
-    margin: 12,
+    display: 'flex',
+    height: 10,
+    width: '100%',
+    margin: 0,
     borderWidth: 1,
+    borderRadius: 5,
     padding: 10,
     backgroundColor: 'white',
     borderColor: 'grey',
@@ -167,7 +171,11 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 40,
     paddingRight: 40,
-    borderRadius: 20,
+    borderRadius: 10,
+    width : '100%',
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   icon: {
     fontSize: 12,
