@@ -1,4 +1,4 @@
-# mateo-service
+# Mateo AI
 
 Mateo AI is the first PAES (Chilean university entry exam) preparation platform that uses artificial intelligence to create a study experience that is personalized, adaptive and entertaining.
 
