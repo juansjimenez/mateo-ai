@@ -4,7 +4,7 @@ Mateo AI is the first PAES (Chilean university entry exam) preparation platform 
 
 🏆 Third Place in Education Track
 
-Demo video: https://www.youtube.com/live/gnNjc2kxx1E?si=HxedkL4QgQXzSVHg&t=4681
+Demo video: https://www.youtube.com/live/gnNjc2kxx1E?si=In0jDpLVfAH2rV_-&t=4686
 
 [**pruebame**](http://mateo-app-env.eba-4yvm7fdc.us-east-1.elasticbeanstalk.com/)
 
